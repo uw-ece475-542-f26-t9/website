@@ -18,30 +18,35 @@ export const DEFAULT_CATEGORY = "proposal";
 //
 // `sort`: 'date' lists newest first; 'order' uses the `order` frontmatter
 // field (lowest first), which suits reference docs that have a reading order.
+// `single`: the tab shows its one entry directly instead of a list of links.
 export const CATEGORIES = [
     {
         id: "proposal",
         label: "Proposal",
         description: "Our project proposal.",
         sort: "order",
+        single: true,
     },
     {
         id: "notebooks",
         label: "Notebooks",
         description: "Week-by-week progress logs.",
         sort: "date",
+        single: false,
     },
     {
         id: "prd",
         label: "PRD",
         description: "Product requirements document.",
         sort: "order",
+        single: true,
     },
 ] as const satisfies readonly {
     id: string;
     label: string;
     description: string;
     sort: "date" | "order";
+    single: boolean;
 }[];
 
 export type CategoryId = (typeof CATEGORIES)[number]["id"];

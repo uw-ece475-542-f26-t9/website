@@ -1,4 +1,5 @@
 ---
+import EntryArticle from "./EntryArticle.astro";
 import EntryList from "./EntryList.astro";
 import Layout from "../layouts/Layout.astro";
 import { getCategory, getEntries } from "../lib/entries";
@@ -11,16 +12,26 @@ interface Props {
 const category = getCategory(Astro.props.id);
 const entries = await getEntries(category.id);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+// Single-entry categories render their (first) entry inline instead of a list.
+const entry = category.single ? entries[0] : undefined;
 ---
 
 <Layout
-    title={category.label}
-    description={category.description}
+    title={entry?.data.title ?? category.label}
+    description={entry?.data.description ?? category.description}
     canonical={`${base}/${category.id}/`}
 >
-    <h1>{category.label}</h1>
-    <p class="lede">{category.description}</p>
-    <EntryList entries={entries} />
+    {
+        entry ? (
+            <EntryArticle entry={entry} />
+        ) : (
+            <>
+                <h1>{category.label}</h1>
+                <p class="lede">{category.description}</p>
+                <EntryList entries={entries} />
+            </>
+        )
+    }
 </Layout>
 
 <style>
