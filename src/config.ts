@@ -4,7 +4,7 @@ export const SITE = {
     title: "Team 9: Muscle Fatigue Detector",
     // Short blurb shown under the title in the header.
     description:
-        "An EMG sensor based detector for muscle fatigue targetting at improving safety while weight lifting, particularly a bicep curl.",
+        "An EMG sensor based detector for muscle fatigue targetted at improving safety while weight lifting, particularly a bicep curl.",
     // Team member names, shown in the header.
     team: ["Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee"],
 };
