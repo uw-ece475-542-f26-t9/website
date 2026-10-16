@@ -1,5 +1,7 @@
 # ECE 542 Team Project Website
 
+Authors: Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee
+
 ## Adding content
 
 Every tab in the header corresponds to a folder in `src/content/`:
