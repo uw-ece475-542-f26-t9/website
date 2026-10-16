@@ -36,7 +36,7 @@ The project will contain three main components:
 
 1. A wearable with an EMG sensor and an IMU that collects data about the bicep and arm movement.
 2. An on-board ML algorithm that predicts the remaining number of reps a user can safely complete in their set, attached to a haptic on the arm to provide user feedback.
-3. A mobile-friendly web app, connected to the wearable via Bluetooth, that displays a combination of live information such as remaining reps in an active set, and cumulative information such as a history of workouts and improvements to perrsonal fatigue over time. This may have to shift to a mobile app if the bluetooth connectivity is problematic, which we will establish early in development.
+3. A mobile app built with Flutter, connected to the wearable via Bluetooth, that displays a combination of live information such as remaining reps in an active set, and cumulative information such as a history of workouts and improvements to perrsonal fatigue over time. Likely, we can show a visualization of activity in the muscle, too.
 
 ### Demo
 
