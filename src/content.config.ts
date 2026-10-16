@@ -15,12 +15,15 @@ const entrySchema = z.object({
     draft: z.boolean().default(false),
 });
 
-// One collection per category, each reading src/content/<id>/**/*.md
+// One collection per category, each reading src/content/<id>/**/*.{md,mdx}
 export const collections = Object.fromEntries(
     CATEGORIES.map((c) => [
         c.id,
         defineCollection({
-            loader: glob({ pattern: "**/*.md", base: `./src/content/${c.id}` }),
+            loader: glob({
+                pattern: "**/*.{md,mdx}",
+                base: `./src/content/${c.id}`,
+            }),
             schema: entrySchema,
         }),
     ]),

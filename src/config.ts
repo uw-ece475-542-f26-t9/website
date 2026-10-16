@@ -13,7 +13,7 @@ export const SITE = {
 export const DEFAULT_CATEGORY = "proposal";
 
 // Each entry here becomes a tab in the header, a content collection, and a
-// folder under src/content/<id>/. Drop a .md file into that folder and it
+// folder under src/content/<id>/. Drop a .md or .mdx file into that folder and it
 // shows up on the tab automatically.
 //
 // `sort`: 'date' lists newest first; 'order' uses the `order` frontmatter
