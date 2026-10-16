@@ -1,0 +1,78 @@
+---
+title: Week 2
+authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
+---
+
+import { Image } from "astro:assets";
+import espImuConnection from "./week2/esp_imu_connection.jpg";
+import imuSolder from "./week2/IMU_solder.jpg";
+import amazonParts from "./week2/amazon_parts.png";
+import imu2 from "./week2/imu_2.jpg";
+import imu1 from "./week2/imu_1.jpg";
+import esp32 from "./week2/esp-32.jpg";
+
+**10/09/2026-10/16/2026**
+
+## Team Goals
+
+- Finalize decisions on core parts
+- Parts procurement
+- Project Proposal Document
+- Define app stack, start early development and scaffolding
+
+## Outcomes and Decisions
+
+- We established our main platform as the ESP32-S3.
+- We decided on the MyoWare 2.0 as our EMG sensor. We have some concerns about the fixed gain and frequency ranges of the MyoWare, so we wanted to ensure we had it early in case we need to exchange parts. Integration with this sensor is expected to be much easier than other market options, so we are starting here.
+- We chose the MPU6050 as our IMU.
+- After the lecture on apps and integration, we decided to use Flutter to build our mobile app. Given the heterogenous nature of our team's hardware, this allows for a flexible development environment that we can compile for any platform. While developing for iOS with Swift and Xcode would have been a fun challenge, we deemed it too difficult given the limited number of Macs in our team.
+
+## Team Member Contributions
+
+### Milo
+
+- Parts procurement.
+- Primary proposal writing.
+- Organization and tool research: configured development environments and version control for all of our code.
+
+### Bernardo
+
+- Parts reserach on the IMU.
+- Early mobile app research and development.
+- Task organization: created a Notion for task tracking and management.
+
+### Adi
+
+- Parts research, particularly regarding the EMG sensor.
+- Background and related technology research and writing for the proposal.
+
+### James
+
+- Parts research regarding the EMG sensor.
+- IMU soldering. We had some issues with the soldering irons not working well, and may need to revisit this next week.
+- Initial embedded code.
+- ESP32/IMU connection.
+
+## Parts Procured
+
+<Image src={amazonParts} alt="Parts order on Amazon" width={600} />
+
+### Budget Tracking
+
+|                          |  Amount |
+| ------------------------ | ------: |
+| This week's order total: |  $94.70 |
+| Total spent:             |  $94.70 |
+| Budget remaining:        | $105.30 |
+
+## Progress
+
+<Image src={espImuConnection} alt="ESP32 connected to the IMU" width={250} />
+
+<Image src={imuSolder} alt="Soldering" width={250} />
+
+<Image src={imu2} alt="IMU with pins" width={250} />
+
+<Image src={imu1} alt="IMU" width={250} />
+
+<Image src={esp32} alt="Flashing initial code to the ESP32" width={250} />
