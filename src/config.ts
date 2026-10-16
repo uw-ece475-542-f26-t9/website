@@ -7,6 +7,8 @@ export const SITE = {
         "An EMG sensor based detector for muscle fatigue targetted at improving safety while weight lifting, particularly a bicep curl.",
     // Team member names, shown in the header.
     team: ["Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee"],
+    // Repo linked from the header. Set to "" to hide the link.
+    github: "https://github.com/uw-ece475-542-f26-t9",
 };
 
 // The tab the home page ("/") sends visitors to.
