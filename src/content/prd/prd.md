@@ -99,14 +99,6 @@ When exercising, particularly weight lifting, it is often difficult to determine
 - Rep-level splits leak correlated data and inflate results. Tuning the threshold after seeing results makes accuracy look better than it is.
 - 8-bit quantization can flatten the subtle spectral features the model needs. Mismatches between the Python pipeline and the ESP32 C code can cause train-serve skew.
 
-## Research Literature Survey (For EE542 students)
-
-### James Lee
-
-#### Paper 1: Computation and Evaluation of Features of Surface Electromyogram to Identify the Force of Muscle Contraction and Muscle Fatigue
-
-- This paper explores which features can be extracted from surface electromyography (sEMG) signals to understand muscle contraction force and muscle fatigue. The researchers collected EMG data from 35 participants performing isometric contractions at 50%, 75%, and 100% of their maximum voluntary contraction (MVC). They compared six EMG features, including RMS, NRMS, MDF, WL, NSM5, and IIS index. For example, RMS is used to measure the amplitude of EMG signals, while MDF describes the frequency distribution of the signals. The researchers used ANOVA and linear regression to study how these features were related to muscle force, fatigue, and differences between participants. The results showed that NSM5 had the strongest linear relationship with muscle contraction force (R² = 0.96), while IIS index had the most significant relationship with muscle fatigue (p < 0.01). The study also found no statistically significant differences between participants for NSM5 and IIS index. For our project, this paper helps us understand which EMG features may be useful for analyzing muscle activity and fatigue. Instead of only using raw EMG signals, we can also extract features such as RMS and evaluate whether NSM5 or IIS index can be used with our sensor setup. We plan to investigate whether these features can help our machine learning model predict Repetitions in Reserve (RIR), which represents how many more repetitions a person can complete before muscular failure.
-
 ## Budget
 
 - **Course-funded budget:** $200.00
