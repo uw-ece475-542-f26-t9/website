@@ -93,7 +93,7 @@ When exercising, particularly weight lifting, it is often difficult to determine
 
 ## Risks
 
-- The MyoWare's smoothed output may discard the frequency shift, and raw signal may be too noisy. Crosstalk and skin impedance changes could also make readings unreliable across days.
+- The MyoWare's smoothed output may discard the frequency shift, and the raw signal may be too noisy. Crosstalk and skin impedance changes could also make readings unreliable across days.
 - Arm motion can create spikes that look like muscle activity during swinging reps. Gyroscope drift can also blur rep boundaries.
 - Grip fatigue or posture changes can cause force drops unrelated to muscle fatigue, corrupting labels. A small dataset can lead the model to learn noise instead.
 - Rep-level splits leak correlated data and inflate results. Tuning the threshold after seeing results makes accuracy look better than it is.
@@ -122,7 +122,16 @@ When exercising, particularly weight lifting, it is often difficult to determine
     - Contribute to development across all software stacks: embedded firmware, mobile app, and on-device ML.
 
 - **Bernardo**
+    - Lead design and build of our mobile app through flutter
+    - Assist with course deliverables
+    - Build the bluetooth connection interface/function and also Demo mode for the app
+    - Assist with embedded development tasks, hardware layout, and soldering
+
 - **Adi**
+    - Overall design and vision lead
+    - Wearable device layout
+    - Lead the on-board ML development workflow
+    - Data acquisition study and training of the on-board model
 
 - **James— Hardware Integration and Embedded Development**
     - Integrate the MyoWare EMG sensor and MPU6050 IMU with the ESP32-S3.
