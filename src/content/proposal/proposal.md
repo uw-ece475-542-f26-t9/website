@@ -9,7 +9,7 @@ when to stop in order to achieve maximum gain without risking injury. Lifting un
 failure, a common practice, goes beyond the threshold for a higher risk of injury.
 Our project aims to detect muscle fatigue to determine a safe but maximally beneficial
 point at which to end a set of weight-lifting repetitions. We are focusing on the
-bicep curl, as detcting fatigue from a varied set of muscles expands the scope beyond
+bicep curl, as detecting fatigue from a varied set of muscles expands the scope beyond
 what we think is possible in 10 weeks.
 
 ## Motivations
