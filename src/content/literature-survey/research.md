@@ -1,4 +1,6 @@
-# Literature Survey
+---
+title: Literature Survey
+---
 
 ## Paper 1:
 

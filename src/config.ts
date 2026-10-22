@@ -43,6 +43,13 @@ export const CATEGORIES = [
         sort: "order",
         single: true,
     },
+    {
+        id: "literature-survey",
+        label: "Literature Survey",
+        description: "Relevant papers and how they influence our project.",
+        sort: "order",
+        single: true,
+    },
 ] as const satisfies readonly {
     id: string;
     label: string;
