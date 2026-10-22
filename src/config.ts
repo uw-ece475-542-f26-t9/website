@@ -30,13 +30,6 @@ export const CATEGORIES = [
         single: true,
     },
     {
-        id: "notebooks",
-        label: "Notebooks",
-        description: "Week-by-week progress logs.",
-        sort: "date",
-        single: false,
-    },
-    {
         id: "prd",
         label: "PRD",
         description: "Product requirements document.",
@@ -49,6 +42,13 @@ export const CATEGORIES = [
         description: "Relevant papers and how they influence our project.",
         sort: "order",
         single: true,
+    },
+    {
+        id: "notebooks",
+        label: "Notebooks",
+        description: "Week-by-week progress logs.",
+        sort: "date",
+        single: false,
     },
 ] as const satisfies readonly {
     id: string;
