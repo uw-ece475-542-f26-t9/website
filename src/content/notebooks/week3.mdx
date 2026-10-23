@@ -1,77 +1,106 @@
 ---
-title: Week 3
+title: Week 3 - 10/16/2026-10/23/2026
 authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
 ---
 
 import { Image } from "astro:assets";
-import myoware_1 from ".week3/11967_0.jpg";
-import myoware_2 from ".week3/11966_0.jpg";
-import myoware_connected from ".week3/11965_0.jpg";
-import myoware_app from ".week3/11963.jpg";
-import myoware_arm from ".week3/11968.jpg";
-
-
-**10/09/2026-10/16/2026**
+import myoware_1 from "./week3/11967_0.jpg";
+import myoware_2 from "./week3/11966_0.jpg";
+import myoware_connected from "./week3/11965_0.jpg";
+import myoware_app from "./week3/11963.jpg";
+import myoware_arm from "./week3/11968_0.jpg";
+import cable_shield from "./week3/cable_shield.jpg";
+import emg_cable from "./week3/emg_cable.jpg";
 
 ## Weekly Progress
+
 1. Re-soldering MPU6050 to make sure it can work.
-2. finishing the basic IMU test to get Accel/Gyro data.  
-3. Writing PRD.
-4. connect myoware to ESP32.
-5. starting research on signal processing(filter).
-6. building the app and connect to esp32.
-
-
+2. Finished the basic IMU test to get Accel/Gyro data.
+3. Wrote PRD.
+4. Connected myoware to ESP32.
+5. Started research on signal processing(filter) to ensure the
+   we can tolerate the noise from the MyoWare.
+6. Built v0.1 of the app and connected to the esp32 with BLE.
 
 ## Outcomes and Decisions
-1. purchase eletrodes cable.
-2. starting research on signal processing(filter).
-3. choose IMA become our test place.
 
-
+1. Purchased longer eletrode lead cable.
+2. Early research and implementation of signal processing(filter).
+3. Decided on a forearm band, potentially with a supplemental wrist
+   band, to hold the main hardware componenents. We will 3D print
+   an enclosure to mount the IMU to this.
 
 ## Team Member Contributions
-### Milo
-1. build the connection between App and embedded device.
-2. helping others to set up github repos setting.
-3. managing parts purchase.
 
+### Milo
+
+1. Built the BLE connection between App and embedded device.
+2. Transmitted first data from the myoware and IMU to the
+   mobile app, setting up a basic graph of RMS spikes when the
+   bicep contracts and a basic rep counter functionality built
+   on IMU data.
+3. Managed procurement of additional parts.
+4. Literature review.
 
 ### Bernardo
-1. Build Flutter app.
-2. develop BLE function.
-3. give the first idea of device organization.
 
+1. Built version 1 and a demo version of the Flutter app.
+2. App-side bluetooth connection interface.
+3. Drafted protoypes for the on-arm device layout.
 
 ### Adi
-1. doing the research on ML 
-2. drafting the PRD file.
+
+1. Researched the on-device ML flow.
+2. Drafted the PRD.
 
 ### James
-1. Re-soldering IMU(MPU6050).
-2. Successfully connect IMU(MPU6050) and esp32.
-3. Doing Literature review for 2 papers.
 
+1. Re-soldered IMU(MPU6050).
+2. Soldered the MyoWare 2.0.
+3. Successfully connected the IMU(MPU6050), MyoWare and esp32 and
+   received the first data from the sensors.
+4. Literature review.
+
+## Parts Procurement
+
+<Image
+    src={cable_shield}
+    alt="MyoWare cable shield for connecting longer EMG leads"
+/>
+
+<Image src={emg_cable} alt="EMG cable leads" width={350} />
 
 ### Budget Tracking
 
 |                          |  Amount |
 | ------------------------ | ------: |
-| This week's order total: |  $94.70 |
-| Total spent:             |  $94.70 |
-| Budget remaining:        | $105.30 |
+| This week's order total: |  $24.42 |
+| Total spent:             | $119.12 |
+| Budget remaining:        |  $80.88 |
 
 ## Progress picture
 
 - Soldering myoware
-<Image src={myoware_1} alt="Soldering myoware" width={250} />
-<Image src={myoware_2} alt="Soldering myoware" width={250} />
 
-- Successfully connect myoware to esp 32
-<Image src={myoware_connected} alt="Successfully connect myoware to esp 32" width={250} />
+    <Image src={myoware_1} alt="Soldering myoware" width={250} />
+    <Image src={myoware_2} alt="Soldering myoware" width={250} />
 
-- we test on arm
-<Image src={myoware_arm} alt="we test on arm" width={250} />
+- Successfully connected the myoware to the ESP32
 
-- we build the app and connect to esp32 and myoware using BLE
-<Image src={myoware_arm} alt="we build the app and connect to esp32 and myoware using BLE" width={250} />
+    <Image
+        src={myoware_connected}
+        alt="Successfully connect myoware to ESP32"
+        width={250}
+    />
+
+- Testing on an arm.
+
+    <Image src={myoware_arm} alt="we test on arm" width={250} />
+
+- Fatigue sensor (ESP32, MyoWare, MPU6050) connected to app v0.1 using BLE
+  and transmitting data.
+    <Image
+        src={myoware_app}
+        alt="we build the app and connect to esp32 and myoware using BLE"
+        width={250}
+    />
