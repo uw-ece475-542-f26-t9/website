@@ -3,13 +3,29 @@ title: Week 3
 authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
 ---
 
+import { Image } from "astro:assets";
+import myoware_1 from ".week3/11967_0.jpg";
+import myoware_2 from ".week3/11966_0.jpg";
+import myoware_connected from ".week3/11965_0.jpg";
+import myoware_app from ".week3/11963.jpg";
+import myoware_arm from ".week3/11968.jpg";
+
+
 **10/09/2026-10/16/2026**
 
-## Team Goals
+## Weekly Progress
+1. Re-soldering MPU6050 to make sure it can work.
+2. Finishing the basic IMU test to get Accel/Gyro data.  
+3. Writing PRD.
+4. connect myoware to ESP32
+5. maybe do some research on signal processing(filter)
+6. building the app and connect to esp32
+
 
 
 
 ## Outcomes and Decisions
+1. purchase battery and eletrodes cable
 
 
 
@@ -26,6 +42,30 @@ authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
 
 
 ### James
+- Re-soldering IMU(MPU6050) 
 - Successfully connect IMU(MPU6050) and esp32.
-- re-soldering IMU(MPU6050) 
 - Doing Literature review for 2 papers.
+
+
+### Budget Tracking
+
+|                          |  Amount |
+| ------------------------ | ------: |
+| This week's order total: |  $94.70 |
+| Total spent:             |  $94.70 |
+| Budget remaining:        | $105.30 |
+
+## Progress picture
+
+- Soldering myoware
+<Image src={myoware_1} alt="" width={250} />
+<Image src={myoware_2} alt="" width={250} />
+
+- Successfully connect myoware to esp 32
+<Image src={myoware_connected} alt="ESP32 connected to the IMU" width={250} />
+
+- we test on arm
+<Image src={myoware_arm} alt="ESP32 connected to the IMU" width={250} />
+
+- we build the app and connect to esp32 and myoware using BLE
+<Image src={myoware_arm} alt="ESP32 connected to the IMU" width={250} />
