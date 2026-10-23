@@ -12,13 +12,13 @@ export async function getStaticPaths() {
                 const entries = await getEntries(category.id);
                 return entries.map((entry, i) => ({
                     params: { category: category.id, slug: entry.id },
-                    // entries are sorted newest/first-in-order first, so
-                    // "previous" in reading order is the next item in the array.
+                    // prev/next follow the order shown on the category list:
+                    // prev is the entry above this one, next the entry below.
                     props: {
                         category,
                         entry,
-                        prev: entries[i + 1],
-                        next: entries[i - 1],
+                        prev: entries[i - 1],
+                        next: entries[i + 1],
                     },
                 }));
             },
