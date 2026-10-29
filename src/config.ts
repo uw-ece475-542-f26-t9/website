@@ -37,6 +37,14 @@ export const CATEGORIES = [
         single: true,
     },
     {
+        id: "rapid-prototype",
+        label: "Rapid Prototype",
+        description:
+            "Early prototype of device, hardware, and software layout.",
+        sort: "order",
+        single: true,
+    },
+    {
         id: "literature-survey",
         label: "Literature Survey",
         description: "Relevant papers and how they influence our project.",
