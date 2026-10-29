@@ -1,0 +1,493 @@
+<figure>
+    <svg
+        viewBox="0 0 1060 640"
+        role="img"
+        aria-label="Block diagram: a LiPo battery feeds a switch board, whose switched battery rail powers the XIAO ESP32-S3 battery pads, the DRV2605L haptic driver and a battery-sense divider. The XIAO talks I2C to the MPU6050 and DRV2605L, powers and reads the MyoWare EMG sensor, and the DRV2605L drives the LRA."
+    >
+        <defs>
+            <marker
+                id="aR"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+            >
+                <path d="M0,0 L10,5 L0,10 z" fill="#d64545" />
+            </marker>
+            <marker
+                id="aB"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+            >
+                <path d="M0,0 L10,5 L0,10 z" fill="#3b6fd6" />
+            </marker>
+            <marker
+                id="aG"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+            >
+                <path d="M0,0 L10,5 L0,10 z" fill="#2f9e58" />
+            </marker>
+            <marker
+                id="aO"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+            >
+                <path d="M0,0 L10,5 L0,10 z" fill="#d9822b" />
+            </marker>
+            <marker
+                id="aG3"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+            >
+                <path d="M0,0 L10,5 L0,10 z" fill="#8a5cd6" />
+            </marker>
+            <marker
+                id="aK"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto-start-reverse"
+            >
+                <path d="M0,0 L10,5 L0,10 z" fill="currentColor" />
+            </marker>
+        </defs>
+
+        <!-- Perfboard boundary -->
+        <rect
+            x="210"
+            y="110"
+            width="600"
+            height="460"
+            rx="10"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.2"
+            stroke-dasharray="6 5"
+            opacity="0.6"
+        />
+        <text x="224" y="134" class="lbl" font-weight="600">
+            Perfboard (4 × 6 cm)
+        </text>
+
+        <!-- USB-C -->
+        <rect class="box" x="430" y="20" width="170" height="48" rx="8" />
+        <text x="515" y="42" text-anchor="middle" class="t">
+            USB-C
+        </text>
+        <text x="515" y="58" text-anchor="middle" class="s">
+            programming + charging
+        </text>
+        <line
+            x1="515"
+            y1="68"
+            x2="515"
+            y2="228"
+            stroke="currentColor"
+            stroke-width="1.6"
+            marker-end="url(#aK)"
+        />
+        <text x="523" y="86" class="lbl">
+            5 V · charges LiPo
+        </text>
+        <text x="523" y="100" class="note">
+            (~100 mA charge rate)
+        </text>
+
+        <!-- Battery (off-board) -->
+        <rect class="box" x="20" y="282" width="150" height="60" rx="8" />
+        <text x="95" y="306" text-anchor="middle" class="t">
+            LiPo 500 mAh
+        </text>
+        <text x="95" y="324" text-anchor="middle" class="s">
+            Adafruit #1578 · protected
+        </text>
+        <text x="95" y="362" text-anchor="middle" class="note">
+            off-board
+        </text>
+
+        <!-- Switch board -->
+        <rect class="box" x="240" y="282" width="130" height="60" rx="8" />
+        <text x="305" y="306" text-anchor="middle" class="t">
+            Switch + JST
+        </text>
+        <text x="305" y="324" text-anchor="middle" class="s">
+            Adafruit #1863
+        </text>
+
+        <!-- XIAO -->
+        <rect
+            class="box"
+            x="430"
+            y="230"
+            width="170"
+            height="170"
+            rx="10"
+            stroke-width="2"
+        />
+        <text x="515" y="256" text-anchor="middle" class="t">
+            Seeed XIAO ESP32-S3
+        </text>
+        <text x="515" y="274" text-anchor="middle" class="s">
+            BLE · 3V3 regulator
+        </text>
+        <text x="515" y="290" text-anchor="middle" class="s">
+            LiPo charger · BAT pads
+        </text>
+        <text x="444" y="322" class="lbl">
+            BAT± pads ← VBAT
+        </text>
+        <text x="444" y="340" class="lbl">
+            D4 SDA / D5 SCL
+        </text>
+        <text x="444" y="358" class="lbl">
+            A0 ← MyoWare RAW
+        </text>
+        <text x="444" y="376" class="lbl">
+            A1 ← battery sense
+        </text>
+        <text x="444" y="393" class="lbl">
+            3V3 → IMU only
+        </text>
+
+        <!-- MPU6050 -->
+        <rect class="box" x="660" y="140" width="140" height="60" rx="8" />
+        <text x="730" y="164" text-anchor="middle" class="t">
+            MPU6050 IMU
+        </text>
+        <text x="730" y="182" text-anchor="middle" class="s">
+            I²C 0x68 · 3V3
+        </text>
+
+        <!-- DRV2605L -->
+        <rect class="box" x="660" y="270" width="140" height="60" rx="8" />
+        <text x="730" y="294" text-anchor="middle" class="t">
+            DRV2605L
+        </text>
+        <text x="730" y="312" text-anchor="middle" class="s">
+            I²C 0x5A · VIN = VBAT
+        </text>
+
+        <!-- Battery sense divider -->
+        <rect class="box" x="430" y="455" width="170" height="50" rx="8" />
+        <text x="515" y="476" text-anchor="middle" class="t">
+            Battery sense
+        </text>
+        <text x="515" y="494" text-anchor="middle" class="s">
+            100 k / 100 k + 0.1 µF
+        </text>
+
+        <!-- LRA (off-board) -->
+        <rect class="box" x="880" y="270" width="160" height="60" rx="8" />
+        <text x="960" y="294" text-anchor="middle" class="t">
+            LRA
+        </text>
+        <text x="960" y="312" text-anchor="middle" class="s">
+            Vybronics VLV101040A
+        </text>
+        <text x="960" y="350" text-anchor="middle" class="note">
+            off-board · on skin
+        </text>
+
+        <!-- MyoWare (off-board) -->
+        <rect class="box" x="880" y="430" width="160" height="70" rx="8" />
+        <text x="960" y="456" text-anchor="middle" class="t">
+            MyoWare 2.0
+        </text>
+        <text x="960" y="474" text-anchor="middle" class="s">
+            EMG + snap electrodes
+        </text>
+        <text x="960" y="490" text-anchor="middle" class="s">
+            47 µF + 0.1 µF at connector
+        </text>
+        <text x="960" y="520" text-anchor="middle" class="note">
+            off-board · cable crosses elbow
+        </text>
+
+        <!-- POWER (red) -->
+        <line
+            x1="170"
+            y1="312"
+            x2="238"
+            y2="312"
+            stroke="#d64545"
+            stroke-width="2.4"
+            marker-end="url(#aR)"
+        />
+        <text x="205" y="302" text-anchor="middle" class="lbl">
+            JST-PH
+        </text>
+        <line
+            x1="370"
+            y1="312"
+            x2="428"
+            y2="312"
+            stroke="#d64545"
+            stroke-width="2.4"
+            marker-end="url(#aR)"
+        />
+        <text x="400" y="303" text-anchor="middle" class="lbl">
+            VBAT
+        </text>
+        <circle cx="400" cy="312" r="3.5" fill="#d64545" />
+        <polyline
+            points="400,312 400,425 725,425 725,332"
+            fill="none"
+            stroke="#d64545"
+            stroke-width="2.4"
+            marker-end="url(#aR)"
+        />
+        <circle cx="515" cy="425" r="3.5" fill="#d64545" />
+        <line
+            x1="515"
+            y1="425"
+            x2="515"
+            y2="453"
+            stroke="#d64545"
+            stroke-width="2.4"
+            marker-end="url(#aR)"
+        />
+        <text x="733" y="398" class="lbl" fill="#d64545" style="fill: #d64545">
+            VBAT
+        </text>
+        <text x="733" y="413" class="note">
+            3.0–4.2 V
+        </text>
+        <text x="733" y="428" class="note">
+            47 µF + 10 µF
+        </text>
+        <text x="300" y="440" text-anchor="middle" class="note">
+            switched VBAT rail
+        </text>
+
+        <!-- I2C (blue) -->
+        <line
+            x1="600"
+            y1="262"
+            x2="630"
+            y2="262"
+            stroke="#3b6fd6"
+            stroke-width="2.4"
+        />
+        <circle cx="630" cy="262" r="3.5" fill="#3b6fd6" />
+        <polyline
+            points="630,262 630,170 658,170"
+            fill="none"
+            stroke="#3b6fd6"
+            stroke-width="2.4"
+            marker-end="url(#aB)"
+        />
+        <polyline
+            points="630,262 630,300 658,300"
+            fill="none"
+            stroke="#3b6fd6"
+            stroke-width="2.4"
+            marker-end="url(#aB)"
+        />
+        <text x="604" y="254" class="lbl" style="fill: #3b6fd6">
+            I²C
+        </text>
+
+        <!-- Battery sense to A1 (green), hops over VBAT bus -->
+        <path
+            d="M570,455 L570,435 A10,10 0 0 1 570,415 L570,402"
+            fill="none"
+            stroke="#2f9e58"
+            stroke-width="2.2"
+            marker-end="url(#aG)"
+        />
+
+        <!-- MyoWare cable (green), hops over VBAT riser -->
+        <path
+            d="M878,452 L850,452 L850,385 L735,385 A10,10 0 0 0 715,385 L602,385"
+            fill="none"
+            stroke="#2f9e58"
+            stroke-width="2.4"
+            marker-end="url(#aG)"
+        />
+        <text x="608" y="402" class="lbl">
+            RAW + GND
+        </text>
+        <text x="858" y="404" class="lbl">
+            JST-PH 3-pin
+        </text>
+        <text x="858" y="418" class="note">
+            (3.0 V · GND · RAW)
+        </text>
+
+        <!-- Haptic drive (orange) -->
+        <line
+            x1="800"
+            y1="300"
+            x2="878"
+            y2="300"
+            stroke="#d9822b"
+            stroke-width="2.4"
+            marker-end="url(#aO)"
+        />
+        <text x="840" y="291" text-anchor="middle" class="lbl">
+            JST-PH 2-pin
+        </text>
+        <text x="845" y="316" text-anchor="middle" class="note">
+            Motor ±
+        </text>
+
+        <!-- MyoWare LDO -->
+        <rect class="box" x="660" y="460" width="140" height="64" rx="8" />
+        <text x="730" y="482" text-anchor="middle" class="t">
+            LDO 3.0 V
+        </text>
+        <text x="730" y="498" text-anchor="middle" class="s">
+            MCP1700-3002E/TO
+        </text>
+        <text x="730" y="514" text-anchor="middle" class="s">
+            1 µF in · 1 µF out
+        </text>
+        <circle cx="690" cy="425" r="3.5" fill="#d64545" />
+        <line
+            x1="690"
+            y1="425"
+            x2="690"
+            y2="458"
+            stroke="#d64545"
+            stroke-width="2.4"
+            marker-end="url(#aR)"
+        />
+        <polyline
+            points="800,492 860,492 860,482 878,482"
+            fill="none"
+            stroke="#8a5cd6"
+            stroke-width="2.4"
+            marker-end="url(#aG3)"
+        />
+        <text x="805" y="512" class="lbl" style="fill: #8a5cd6">
+            3.0 V
+        </text>
+
+        <!-- Legend -->
+        <g transform="translate(150,604)">
+            <line
+                x1="0"
+                y1="0"
+                x2="28"
+                y2="0"
+                stroke="#d64545"
+                stroke-width="2.4"
+            />
+            <text x="36" y="4" class="lbl">
+                Battery power (VBAT)
+            </text>
+            <line
+                x1="180"
+                y1="0"
+                x2="208"
+                y2="0"
+                stroke="#3b6fd6"
+                stroke-width="2.4"
+            />
+            <text x="216" y="4" class="lbl">
+                I²C (+ 3V3 to IMU)
+            </text>
+            <line
+                x1="350"
+                y1="0"
+                x2="378"
+                y2="0"
+                stroke="#2f9e58"
+                stroke-width="2.4"
+            />
+            <text x="386" y="4" class="lbl">
+                Analog / sensor
+            </text>
+            <line
+                x1="510"
+                y1="0"
+                x2="538"
+                y2="0"
+                stroke="#d9822b"
+                stroke-width="2.4"
+            />
+            <text x="546" y="4" class="lbl">
+                Haptic drive
+            </text>
+            <line
+                x1="660"
+                y1="0"
+                x2="688"
+                y2="0"
+                stroke="#8a5cd6"
+                stroke-width="2.4"
+            />
+            <text x="696" y="4" class="lbl">
+                Clean 3.0 V
+            </text>
+            <circle cx="800" cy="0" r="3.5" fill="currentColor" />
+            <text x="810" y="4" class="lbl">
+                junction
+            </text>
+        </g>
+    </svg>
+    <figcaption>
+        Diagram of major components and perfboard circuit layout.
+    </figcaption>
+</figure>
+
+<style>
+    figure {
+        margin: 1.5rem 0;
+    }
+    svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    text {
+        fill: currentColor;
+    }
+    .box {
+        fill: var(--surface);
+        stroke: currentColor;
+        stroke-width: 1.4;
+    }
+    .t {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .s {
+        font-size: 11.5px;
+        fill: var(--muted);
+    }
+    .lbl {
+        font-size: 11.5px;
+    }
+    .note {
+        font-size: 11px;
+        font-style: italic;
+        fill: var(--muted);
+    }
+    figcaption {
+        margin-top: 0.75rem;
+        color: var(--muted);
+        font-size: 0.875rem;
+    }
+</style>

@@ -1,0 +1,84 @@
+---
+title: Week 3 - 10/16/2026-10/23/2026
+authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
+---
+
+import { Image } from "astro:assets";
+import BlockDiagram from "../../components/BlockDiagram.astro";
+import placementSketch from "./assets/wearable_placement_concept.png";
+import placementPdf from "./assets/wearable_placement_concept.pdf?url";
+
+## Wearable
+
+<a href={placementPdf}>
+    <Image
+        src={placementSketch}
+        alt="Hand-drawn sketch of the wearable placement concept: front and side views of an arm with the MyoWare 2.0 on the bicep, a reference electrode near the elbow, and a cable running to a 3D-printed wrist enclosure. An open view of the enclosure shows the XIAO ESP32-S3, MPU6050 IMU, 500 mAh LiPo, and DRV2605L with its power circuit."
+    />
+</a>
+
+The wearable will consist of 2 major parts, the main housing for the microcontroller,
+battery, and on-board circuit, and the myoware sensor. The housing will be a 3D-printed
+case on the wrist, secured tightly with an elastic strap to prevent the IMU from moving
+separately from the arm. It will contain the battery and the perfboard circuit, most
+likely stacked atop one another. More details on the perfboard circuit follow in the
+hardware section.
+
+The second component is the MyoWare 2.0 sensor and corresponding electrodes. The sensor
+itself will sit on the bicep, with the two differential electrodes resting at their default
+spacing of about 2.5cm. Keeping these main electrodes directly attached to the MyoWare
+prevents a long run for the weak EMG signal, which is the most likely place for excessive
+noise to be introduced. The reference electrode will sit on a bony part of the elbow,
+attached with a short lead. While the leads to the two differential electrodes must be of
+equal length, the reference lead may differ without issue. The myoware will be connected
+to the main device via a flexible wire running up the arm and across the elbow. It will
+be taped in a couple of places to prevent extra movement, but slack around the joint for
+user comfort and to prevent pulling on the wire with each arm movement.
+
+## Hardware
+
+<BlockDiagram />
+
+The main system consists of an XIAO ESP32-S3, an MPU6050 IMU, a DRV2605L driving a Linear
+Resonant Actuator (LRA) for haptic feedback, and a small voltage sensing circuit. These are
+soldered onto a 4 × 6 cm perfboard, while the 500 mAh LiPo, the LRA, and the MyoWare sit
+off-board and plug in over JST-PH connectors. Power runs from the LiPo through a small
+switch board, and the switched battery rail (3.0–4.2 V) feeds the XIAO's battery pads, the
+DRV2605L, the battery sense divider, and a dedicated 3.0 V LDO for the MyoWare. The
+DRV2605L has 47 µF and 10 µF capacitors at its supply to absorb the current spikes when
+the motor fires. Giving the MyoWare its own regulator keeps the load spikes from the
+ESP32's BLE radio and processing out of the EMG supply, where they would show up as noise,
+so the XIAO's 3.3 V output only powers the IMU. The XIAO's USB-C port is used for both
+programming and charging, charging the LiPo at around 100 mA.
+
+The IMU and DRV2605L share one I²C bus on pins D4 (SDA) and D5 (SCL), at addresses 0x68
+and 0x5A. The DRV2605L drives the LRA over a 2-pin cable, so the motor can sit against the
+skin outside the enclosure. The MyoWare connects with a 3-pin cable carrying 3.0 V, ground,
+and its RAW output, which the XIAO reads on analog pin A0. Its ground runs on a separate
+wire straight to a XIAO GND pin rather than sharing a path with the rest of the board,
+which keeps return current from the other parts from shifting the reference the EMG signal
+is measured against. Finally, the battery sense circuit is a 100 kΩ / 100 kΩ divider with
+a 0.1 µF capacitor to steady the reading. It halves the battery voltage to fit within the
+ADC's range, and is read on A1 to track the remaining charge.
+
+## Software
+
+The software stack will consist primarily of the companion app, "Fatigue Coach," build in
+Flutter/Dart with Material 3 theming. It targets Android and iOS, but runs across web and
+deskop platforms as well. The app connects to the wearable over
+BLE, and only lists devices that
+advertise the firmware's custom service ID, so other nearby Bluetooth devices are hidden.
+Once connected, it receives three data streams in a compact binary format, which a small
+protocol layer decodes: motion-sensor readings at 50 Hz, muscle-signal (EMG) summaries at
+10 Hz, and rep events that carry the rep count and each rep's range of motion. The app's
+state lives in two controller classes built on Flutter's own ChangeNotifier, with no
+third-party state library. One manages the connection and passes the sensor data on to
+the rest of the app; the other runs workout sets. A set's rep count is the change in the
+wearable's running counter since the set began, and a set ends automatically if the
+connection drops. The screens are an animated splash, a
+connect page with a live sensor check, and Home, Workout and History tabs, with
+charts for arm motion, reps per set and weekly activity. All data stays on the phone in
+shared_preferences (a simple key-value store): each finished set is saved as a small JSON
+record with start time, duration, reps and an optional peak-fatigue value. A database
+and account system for tracking user data across devices is a goal, if development time
+allows.
