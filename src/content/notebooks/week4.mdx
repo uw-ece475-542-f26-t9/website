@@ -1,0 +1,83 @@
+---
+title: Week 4
+authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
+---
+
+import { Image } from "astro:assets";
+import work1 from "./week4/20261027_154453.jpg";
+import work2 from "./week4/20261027_154508.jpg";
+import test1 from "./week4/20261027_160911.jpg";
+import test2 from "./week4/20261027_161816.jpg";
+
+
+
+## Weekly Progress
+
+1. Conducted weighted bicep curl tests using the EMG sensor setup. Successfully captured muscle activity and observed signal changes consistent with fatigue as the exercise progressed.
+2. Reviewed the placement and wiring of the components on the perfboard, including the ESP32, power connections, and supporting circuitry.
+3. Designed and 3D-printed an initial enclosure prototype for the wearable device.
+
+## Outcomes and Decisions
+
+1. Decided to add a power switch between the battery and the ESP32 to turn the device on and off.
+2. Completed the initial enclosure design and print. The printed prototype will be used to evaluate component fit, cable routing, and strap attachment.
+3. Clarified the electrode configuration: the MyoWare sensor will remain on the biceps, with the MID and END electrodes attached directly beneath the board. Only the REF electrode requires an extension cable to reach a separate reference location. Power and signal wiring between the MyoWare and ESP32 is still required.
+
+## Team Member Contributions
+
+### Milo
+
+### Bernardo
+
+1. Added fatigue detection to the Flutter app, using per-rep speed, duration, range of motion and EMG level to estimate fatigue and safe reps left.
+2. Added a training data mode to the app to label and export workout sets, and a Python script to train the fatigue model from that data.
+3. Updated the EMG sampling on the ESP32 to a steady 2 kHz with filtering, and added a USB capture mode to stream raw EMG and IMU data to a laptop.
+4. Built Python tools to record sets and analyse EMG fatigue features (median frequency, mean frequency, skewness, kurtosis), plus a simulator to test them without hardware.
+5. Wrote setup instructions in the README for others to contribute to the app development process.
+6. Researched 3D modeling methods for the wearable enclosure.
+
+### Adi
+
+### James
+
+1. Tested the ESP32-based sensor setup and checked EMG and IMU readings to assess basic data acquisition.
+2. Completed the wiring diagram.
+3. Sketched a wearable placement concept diagram.
+4. Documented team progress.
+5. Researched 3D modeling methods for the wearable enclosure.
+
+## Parts Procurement
+
+### Budget Tracking
+
+| Item | Amount (USD) |
+| --- | ---: |
+| This week’s order total | $24.42 |
+| Total spent | $119.12 |
+| Budget remaining | $80.88 |
+
+
+## Weekly Progress picture
+    <Image
+        src={test1}
+        alt="test1"
+        width={250}
+    />
+
+    <Image
+        src={test2}
+        alt="test2"
+        width={250}
+    />
+
+    <Image
+        src={work1}
+        alt="work1"
+        width={250}
+    />
+
+    <Image
+        src={work2}
+        alt="work2"
+        width={250}
+    />
