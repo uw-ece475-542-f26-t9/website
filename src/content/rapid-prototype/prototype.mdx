@@ -92,9 +92,11 @@ The software stack will consist primarily of the companion app, "Fatigue Coach,"
 Flutter/Dart with Material 3 theming. It targets Android and iOS, but also runs on web and
 desktop platforms. The app connects to the wearable over BLE and only lists devices that
 advertise the firmware's custom service ID, so other nearby Bluetooth devices are hidden.
-Once connected, it receives three data streams: motion-sensor readings at 50 Hz,
-muscle-signal (EMG) summaries at 10 Hz, and rep events that carry the rep count and each
-rep's range of motion. These arrive in a compact binary format, which a small protocol
+Once connected, it receives three data streams: motion-sensor readings and
+muscle-signal (EMG) summaries for a live display of muscle activity, and rep events that carry
+the rep count, each rep's range of motion, and the predictive data from the on-board model
+which contain the ongoing fatigue results.
+These arrive in a compact binary format, which a small protocol
 layer decodes. The app's state lives in two controller classes built on Flutter's own
 `ChangeNotifier`, with no third-party state library. One manages the connection and
 passes the sensor data on to the rest of the app; the other runs workout sets. A set's rep
