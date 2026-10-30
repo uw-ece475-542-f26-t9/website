@@ -1,5 +1,5 @@
 ---
-title: Week 4
+title: Week 4 - 10/23/2026-10/30/2026
 authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
 ---
 
@@ -8,8 +8,8 @@ import work1 from "./week4/20261027_154453.jpg";
 import work2 from "./week4/20261027_154508.jpg";
 import test1 from "./week4/20261027_160911.jpg";
 import test2 from "./week4/20261027_161816.jpg";
-
-
+import digikey from "./week4/digikey_parts_2.png";
+import pololu from "./week4/pololu_parts.png";
 
 ## Weekly Progress
 
@@ -27,6 +27,13 @@ import test2 from "./week4/20261027_161816.jpg";
 
 ### Milo
 
+1. Integrated parts beyond the ESP32-S3 and main 2 sensors into the design, and designed a prototype of the device layout.
+2. Chose parts for the haptic feedback module and wiring on the board, built
+   a power budget around those new specs, and selected a battery.
+3. Drew up a box diagram of the perfboard layout.
+4. Compiled a final parts list, detemined which generics can be found in the lab, and procured all remaining parts.
+5. Compiled the wearable, hardware, and software prototypes into the rapid prototype page.
+
 ### Bernardo
 
 1. Added fatigue detection to the Flutter app, using per-rep speed, duration, range of motion and EMG level to estimate fatigue and safe reps left.
@@ -38,6 +45,12 @@ import test2 from "./week4/20261027_161816.jpg";
 
 ### Adi
 
+1. Wrote a series of tests to determine more concretely that the MyoWare EMG sensor can detect fatigue.
+2. Identified proper placement of electrodes, and set up a temporary extension to position the
+   reference for testing until we have the full wearable configured.
+3. Set up experimental proceedure and tested the MyoWare under realistic conditions to determine its aptitude for
+   testing fatigue and identify the extent of noise we will have to filter out.
+
 ### James
 
 1. Tested the ESP32-based sensor setup and checked EMG and IMU readings to assess basic data acquisition.
@@ -48,16 +61,28 @@ import test2 from "./week4/20261027_161816.jpg";
 
 ## Parts Procurement
 
+    <Image
+        src={digikey}
+        alt="DigiKey parts order"
+    />
+
+    <Image
+        src={pololu}
+        alt="DigiKey parts order"
+        width={550}
+    />
+
 ### Budget Tracking
 
-| Item | Amount (USD) |
-| --- | ---: |
-| This week’s order total | $24.42 |
-| Total spent | $119.12 |
-| Budget remaining | $80.88 |
+| Item                    | Amount (USD) |
+| ----------------------- | -----------: |
+| Spent before this week  |      $119.12 |
+| This week's order total |       $65.03 |
+| Total spent             |      $184.15 |
+| Budget remaining        |       $15.85 |
 
+## Weekly Progress pictures
 
-## Weekly Progress picture
     <Image
         src={test1}
         alt="test1"
