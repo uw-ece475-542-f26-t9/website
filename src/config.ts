@@ -58,6 +58,13 @@ export const CATEGORIES = [
         sort: "date",
         single: false,
     },
+    {
+        id: "additional-notes",
+        label: "Additional Notes",
+        description: "Notes and reports beyond the explict course scope.",
+        sort: "date",
+        single: false,
+    },
 ] as const satisfies readonly {
     id: string;
     label: string;
