@@ -6,48 +6,60 @@ authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
 import { Image } from "astro:assets";
 import drv from "./week5/drv.jpg";
 import solder from "./week5/solder.jpg";
-import switch from "./week5/switch.jpg";
+import switchImg from "./week5/switch.jpg";
 import xiao from "./week5/xiao.jpg";
-import layout from "./week5/layout.jpg";
-
+import layout from "./week5/layout.png";
 
 ## Weekly Progress
 
 1. Soldered the newly purchased modules and tested them to confirm they worked after assembly.
 2. Discussed the next steps for integrating the new hardware with the rest of the system.
+3. Planned for onboard ML component, including data collection proceedure and
 
 ## Outcomes and Decisions
 
-1. The newly soldered modules passed their initial functional checks, so we can move on to testing them together.
-2. Hardware assembly and initial testing took up most of this week’s development time. We plan to spend more time over the next two weeks integrating and testing the new hardware as a system.
+1. The newly soldered modules passed their initial functional checks,
+   so we can move on to testing them together.
+2. Hardware assembly and initial testing took up most of this week's
+   development time. We plan to spend more time over the next week
+   integrating and testing the new hardware as a system.
+3. Researched JST-PH connector options after discovering they are not
+   available in the lab, and ultimately decided to forgo
+   them due to the large quantity required to purchase, and the small
+   remaining budget.
 
 ## Team Member Contributions
 
 ### Milo
 
-
+1. Procured and delivered parts shipment and additional parts from the communal
+   lab resources, testing found parts for suitable specs.
+2. Mocked perfboard layout and placement, and investigated methods for securing
+   breakout boards with unusual pin layouts.
 
 ### Bernardo
 
+1. Identified layout for power delivery from the battery, including the switch
+   layout and how it interfaces with the xiao.
 
 ### Adi
-1. Researched on signal processing pipeline.
 
+1. Researched signal processing pipeline.
+2. Wrote data collection proceedure document in advance of the data collection process.
 
 ### James
+
 1. Soldered the Esp32 XIAO, DRV2605L, Switch, new IMU.
-2. Planed perfboard layout.
+2. Planed and diagramed perfboard layout.
 
+## Budget
 
+No new parts were ordered this week.
 
-### Budget Tracking
-
-| Item                    | Amount (USD) |
-| ----------------------- | -----------: |
-| Spent before this week  |      $119.12 |
-| This week's order total |       $65.03 |
-| Total spent             |      $184.15 |
-| Budget remaining        |       $15.85 |
+| Item             | Amount (USD) |
+| ---------------- | -----------: |
+| Total spent      |      $184.15 |
+| Budget remaining |       $15.85 |
 
 ## Weekly Progress pictures
 
@@ -70,7 +82,7 @@ import layout from "./week5/layout.jpg";
     />
 
     <Image
-        src={switch}
+        src={switchImg}
         alt="switch"
         width={250}
     />
