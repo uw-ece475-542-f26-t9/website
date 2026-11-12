@@ -1,0 +1,89 @@
+---
+title: Week 6 - 11/06/2026-11/13/2026
+authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
+---
+
+import { Image } from "astro:assets";
+import DRV from "./week6/DRV.jpg";
+import all from "./week6/all.jpg";
+import LRA from "./week6/LRA.jpg";
+import solder1 from "./week6/solder1.jpg";
+import wire from "./week6/wire.jpg";
+
+
+
+## Weekly Progress
+
+- Soldered header pins onto the individual hardware modules and verified that the app could display live IMU and MyoWare EMG readings from the battery-powered prototype.
+- Verified that the haptic motor worked in a standalone test. Added a temporary five-second vibration test to the integrated ESP32-S3 firmware and pushed the updated code to the team's embedded repository on GitHub.
+- Began researching how to use EMG and IMU data to estimate muscle fatigue.
+
+## Outcomes and Decisions
+
+- Prioritize getting the full prototype working end to end. Verify sensor acquisition, app display, and haptic feedback together before refining individual features.
+- Keep model research and firmware integration moving in parallel. Use the available sensor data to explore features for fatigue estimation while continuing hardware tests.
+- Use periodic vibration to test haptic feedback during integration. In the current setup, sensor readings reach the app, and the motor works on its own. The next step is to verify that the motor also works while the integrated firmware streams sensor data.
+
+
+## Team Member Contributions
+
+### Milo
+
+
+
+### Bernardo
+
+
+
+### Adi
+
+
+
+### James
+1. Soldered the header pins onto the individual hardware modules.
+2. Wrote and tested firmware for the DRV2605L haptic driver and verified that it drove the vibration motor.
+3. Disconnected USB and verified that the app could receive and display IMU data while the device ran on battery power.
+4. Wrote the integrated ESP32-S3 firmware, adding a periodic haptic test to the existing EMG and IMU firmware.
+5. Edited the milestone demo video.
+
+
+## Budget
+
+No new parts were ordered this week.
+
+| Item             | Amount (USD) |
+| ---------------- | -----------: |
+| Total spent      |      $184.15 |
+| Budget remaining |       $15.85 |
+
+## Weekly Progress pictures
+
+    <Image
+        src={DRV}
+        alt="DRV"
+        width={250}
+    />
+
+    <Image
+        src={LRA}
+        alt="LRA"
+        width={250}
+    />
+
+    <Image
+        src={all}
+        alt="all"
+        width={250}
+    />
+
+    <Image
+        src={solder1}
+        alt="solder1"
+        width={250}
+    />
+
+    <Image
+        src={wire}
+        alt="wire"
+        width={250}
+    />
