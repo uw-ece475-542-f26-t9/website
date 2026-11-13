@@ -8,7 +8,7 @@ import DRV from "./week6/DRV.png";
 import all from "./week6/all.png";
 import LRA from "./week6/LRA.png";
 import solder1 from "./week6/solder1.png";
-import wire from "./week6/wire.png";
+import BreadboardLayout from "../../components/BreadboardLayout.astro";
 
 ## Weekly Progress
 
@@ -48,55 +48,62 @@ import wire from "./week6/wire.png";
 
 ### Milo
 
-1. Soldered battery conneciton pads on the Xiao, as well as pads on LRA and corresponding
-   connection points on the DVR2605L breakout board.
-2. Connected components on the breadboard with temporary power via the ESP32 to test the Xiao
-   and the sensors.
-3. Wired the battery, switch, and power delivery circuits.
-    1. The Myoware is powered via a voltage regulator to keep a consistent ceiling for readings
-       even as battery voltage decays with battery drain.
-    2. A capacitor near the LRA powers large spikes from haptic pulses without dropping voltage
-       for other components.
-    3. The IMU is powered via the ESP32's 3v3 pin.
-    4. The battery is charged via a charging circuit built into the Xiao.
-4. Tested the full device on battery power, connecting to the app and trasmitting readings from
-   both sensors over BLE.
+- Soldered battery conneciton pads on the Xiao, as well as pads on LRA and corresponding
+  connection points on the DVR2605L breakout board.
+- Connected components on the breadboard with temporary power via the ESP32 to test the Xiao
+  and the sensors.
+- Wired the battery, switch, and power delivery circuits.
+    - The Myoware is powered via a voltage regulator to keep a consistent ceiling for readings
+      even as battery voltage decays with battery drain.
+    - A capacitor near the LRA powers large spikes from haptic pulses without dropping voltage
+      for other components.
+    - The IMU is powered via the ESP32's 3v3 pin.
+    - The battery is charged via a charging circuit built into the Xiao.
+- Tested the full device on battery power, connecting to the app and trasmitting readings from
+  both sensors over BLE.
 
 ### Bernardo
 
-1. Researched on the specific models that we should use for our project
-   (Huggingface or TinyML)
-2. Built a small on-device machine learning model (6 → 16 → 8 → 1 neural network)
-   that runs on the ESP32 after every rep and estimates reps in reserve (reps left
-   before failure).
-3. Added per-rep feature extraction on the ESP32: peak lift speed, moving time,
-   range of motion, EMG RMS and EMG median frequency, each compared with the median
-   of the set's first 3 reps.
-4. Wrote a Python training script that trains the model, compares it with a
-   velocity-only baseline using leave-one-subject-out testing, quantizes it to 8-bit
-   weights (232 bytes) and exports it into the firmware.
-5. Verified the model on the ESP32: a boot self-test matches the Python output,
-   and each prediction takes about 20-30 µs.
-6. Tested the full pipeline on real bicep curls: reps were counted, features
-   measured and the model ran each rep. The model is currently trained on synthetic
-   data, so its estimates aren't accurate yet.
-7. Added a haptic alert when the model predicts 2 or fewer reps in reserve, and
-   an “f” serial command that reports the model's error after a set taken to failure.
-8. Added host tests that check the ESP32 feature and model code against Python,
-   including tilted and flipped board mounts.
+- Researched on the specific models that we should use for our project
+  (Huggingface or TinyML)
+- Built a small on-device machine learning model (6 → 16 → 8 → 1 neural network)
+  that runs on the ESP32 after every rep and estimates reps in reserve (reps left
+  before failure).
+- Added per-rep feature extraction on the ESP32: peak lift speed, moving time,
+  range of motion, EMG RMS and EMG median frequency, each compared with the median
+  of the set's first 3 reps.
+- Wrote a Python training script that trains the model, compares it with a
+  velocity-only baseline using leave-one-subject-out testing, quantizes it to 8-bit
+  weights (232 bytes) and exports it into the firmware.
+- Verified the model on the ESP32: a boot self-test matches the Python output,
+  and each prediction takes about 20-30 µs.
+- Tested the full pipeline on real bicep curls: reps were counted, features
+  measured and the model ran each rep. The model is currently trained on synthetic
+  data, so its estimates aren't accurate yet.
+- Added a haptic alert when the model predicts 2 or fewer reps in reserve, and
+  an “f” serial command that reports the model's error after a set taken to failure.
+- Added host tests that check the ESP32 feature and model code against Python,
+  including tilted and flipped board mounts.
 
 ### Adi
 
+- Worked on the project's signal processing pipeline and explored Kalman filtering for fatigue estimation.
+- The current pipeline band-pass filters the raw EMG signal (20–450 Hz), removes power-line interference, and extracts median frequency and RMS amplitude from 0.5 s windows.
+- Analysis of the sensor-testing data showed that median-frequency estimates vary by approximately 10% between windows, while the underlying fatigue-related drift is only 0.02–0.12% per window.
+- Proposed applying a Kalman filter to these extracted features rather than to the raw signal, whose frequency content must be preserved. The filter would produce a real-time estimate of the fatigue trend together with its uncertainty.
+- The measured feature variance sets the filter's measurement noise. The process noise will be chosen from the required warning response time and validated on held-out recordings.
+- The same framework provides a principled way to fuse EMG and wrist-IMU features into a single estimate of the reps remaining before form breakdown.
+
 ### James
 
-1. Soldered the header pins onto the individual hardware modules.
-2. Wrote and tested firmware for the DRV2605L haptic driver and verified
-   that it drove the vibration motor.
-3. Disconnected USB and verified that the app could receive and display
-   IMU data while the device ran on battery power.
-4. Wrote the integrated ESP32-S3 firmware, adding a periodic haptic test
-   to the existing EMG and IMU firmware.
-5. Edited the milestone demo video.
+- Soldered the header pins onto the individual hardware modules.
+- Wrote and tested firmware for the DRV2605L haptic driver and verified
+  that it drove the vibration motor.
+- Disconnected USB and verified that the app could receive and display
+  IMU data while the device ran on battery power.
+- Wrote the integrated ESP32-S3 firmware, adding a periodic haptic test
+  to the existing EMG and IMU firmware.
+- Edited the milestone demo video.
 
 ## Budget
 
@@ -133,8 +140,4 @@ No new parts were ordered this week.
         width={250}
     />
 
-    <Image
-        src={wire}
-        alt="wire"
-        width={250}
-    />
+<BreadboardLayout />
