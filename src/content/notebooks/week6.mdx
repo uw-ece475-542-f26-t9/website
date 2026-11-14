@@ -96,14 +96,24 @@ import BreadboardLayout from "../../components/BreadboardLayout.astro";
 
 ### James
 
-- Soldered the header pins onto the individual hardware modules.
-- Wrote and tested firmware for the DRV2605L haptic driver and verified
-  that it drove the vibration motor.
-- Disconnected USB and verified that the app could receive and display
-  IMU data while the device ran on battery power.
-- Wrote the integrated ESP32-S3 firmware, adding a periodic haptic test
-  to the existing EMG and IMU firmware.
-- Edited the milestone demo video.
+- Soldered header pins onto the individual hardware modules and prepared
+  them for wiring and bench testing with the XIAO ESP32-S3.
+- Wrote a standalone test sketch for the DRV2605L haptic driver. Configured
+  it to drive the linear resonant actuator (LRA) over commands sent via
+  I²C and confirmed that the actuator responded to short vibration pulses.
+- Flashed the sensor firmware onto the XIAO ESP32-S3, disconnected USB,
+  and switched the prototype to battery power. Connected to the device
+  over Bluetooth Low Energy and verified that the app continued to receive
+  and display live MPU6050 IMU readings.
+- Integrated the DRV2605L into the firmware that already handled MyoWare
+  EMG sampling and MPU6050 readings. Configured both I²C devices to share
+  the same SDA and SCL pins and used a non-blocking timer to schedule
+  short vibration pulses without pausing the sensor loop.
+- Pushed the integrated firmware to the team's `embedded` repository on
+  GitHub so teammates could review the changes and test sensor streaming
+  and haptic feedback together on the prototype.
+- Edited the milestone demo video to document the prototype's progress
+  and prepare a walkthrough for the project status presentation.
 
 ## Budget
 
