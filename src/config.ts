@@ -65,6 +65,13 @@ export const CATEGORIES = [
         sort: "date",
         single: false,
     },
+    {
+        id: "presentations",
+        label: "Presentations",
+        description: "Project status and final presentations.",
+        sort: "order",
+        single: true,
+    },
 ] as const satisfies readonly {
     id: string;
     label: string;
