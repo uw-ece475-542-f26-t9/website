@@ -1,11 +1,11 @@
 ---
-title: Week 6 - 11/06/2026-11/13/2026
+title: Week 7 - 11/13/2026-11/20/2026
 authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
 ---
 
 import { Image } from "astro:assets";
-import DRV from "./week6/DRV.png";
-
+import PerfboardDiagram from "../../components/PerfboardDiagram.astro";
+import Perfboard from "./week7/irl_board.jpg";
 
 ## Weekly Progress
 
@@ -30,22 +30,27 @@ import DRV from "./week6/DRV.png";
 - Label the recordings, train and compare the candidate models, and evaluate warning performance.
 - Test the updated capture firmware on the XIAO and connect the selected warning output to haptic feedback.
 
-
-
 ## Team Member Contributions
-
 
 ### Milo
 
-
+1. Transfered the hardware from a breadboard prototype to the perfboard.
+2. Soldered all components and connections on the perfboard.
+3. Tested continuity, voltage, and all circuit components before powering
+   the perfboard circuit.
+4. Compiled existing unit tests for individual components into a single
+   hardware validation image that runs a full interactive diagnostic,
+   and used it to verify the integrity of the final perfboard circuit.
+5. 3D printed V1 of the case.
 
 ### Bernardo
-1. Assisted on preparing the project slides and also presented the projects slides covering end goals and next
-2. Make readjustments on the 3D case design
-3. Assisted on drafting the week 7 weekly notebook
 
+1. Assisted on preparing the project slides and also presented the projects slides covering end goals and next.
+2. Make readjustments on the 3D case design.
+3. Assisted on drafting the week 7 weekly notebook.
 
 ### Adi
+
 1. Built the project's full signal processing and ML pipeline (pipeline/, branch signal-pipeline), with 112 automated tests.
 2. Switched the labels from rep counts to time: the model predicts seconds until form breakdown, and warns at 4 s and 2 s (2 and 1 reps at the metronome pace).
 3. Implemented real-time EMG cleaning (linear-phase band-pass, removal of hum and interference, noise-floor subtraction), RepSense's forearm angle (run in real time) and soft angle bins, so the same arm angle is always compared with itself.
@@ -56,7 +61,7 @@ import DRV from "./week6/DRV.png";
 
 ### James
 
-1. Tested the haptic feedback using the integrated ESP32-S3 firmware and adjusted the interval between vibration pulses. 
+1. Tested the haptic feedback using the integrated ESP32-S3 firmware and adjusted the interval between vibration pulses.
 2. Prepared and presented the project status slides, covering the hardware architecture, current progress, integration challenges, and next steps.
 3. Edited the milestone demo video for the project status presentation.
 4. Added a Presentations section to the project website and linked the Google Slides so the latest version could be accessed from the site.
@@ -73,6 +78,6 @@ No new parts were ordered this week.
 
 ## Weekly Progress pictures
 
+<Image src={Perfboard} alt="Perfboard" width={350} />
 
-
-<BreadboardLayout />
+<PerfboardDiagram />
