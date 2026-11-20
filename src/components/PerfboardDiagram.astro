@@ -1,0 +1,3367 @@
+---
+// 14 × 20 perfboard: columns 1–14, rows A–T (the back of the board prints rows T–A).
+const cols = Array.from({ length: 14 }, (_, i) => i);
+const rows = "ABCDEFGHIJKLMNOPQRST".split("");
+const backRows = [...rows].reverse();
+const legend = [
+    ["#555b61", "GND"],
+    ["#d64545", "VBAT (switched battery)"],
+    ["#9b1c1c", "Battery + (unswitched)"],
+    ["#e07b00", "3.3 V (XIAO)"],
+    ["#8a5cd6", "3.0 V (MyoWare regulator)"],
+    ["#3b6fd6", "I²C SDA"],
+    ["#139aa8", "I²C SCL"],
+    ["#2f9e58", "MyoWare ENV"],
+    ["#6f9a1f", "Battery sense"],
+    ["#b0479a", "Button / OFF"],
+];
+---
+
+<figure>
+    <div class="views">
+        <div class="view">
+            <p class="view-label">Front (component side)</p>
+            <svg
+                viewBox="-2 -22 564 786"
+                role="img"
+                aria-label="Front (component) side of the perfboard layout"
+            >
+                <defs>
+                    <pattern
+                        id="hatchf"
+                        width="6"
+                        height="6"
+                        patternUnits="userSpaceOnUse"
+                    >
+                        <path
+                            d="M0,6 L6,0"
+                            stroke="currentColor"
+                            stroke-width="0.6"
+                            opacity="0.25"
+                        />
+                    </pattern>
+                </defs>
+                <rect
+                    x="54"
+                    y="9.6"
+                    width="448"
+                    height="38.4"
+                    fill="url(#hatchf)"
+                    stroke="currentColor"
+                    stroke-opacity="0.3"
+                    stroke-dasharray="3 3"
+                />
+                <rect
+                    x="54"
+                    y="688"
+                    width="448"
+                    height="70.4"
+                    fill="url(#hatchf)"
+                    stroke="currentColor"
+                    stroke-opacity="0.3"
+                    stroke-dasharray="3 3"
+                />
+                <rect
+                    x="54"
+                    y="48"
+                    width="448"
+                    height="640"
+                    rx="4"
+                    class="board"
+                />
+                <text x="278" y="746.4" text-anchor="middle" class="note">
+                    edge pads (short edge)
+                </text>
+                {cols.map((c) => (
+                    <text
+                        x={70 + 32 * c}
+                        y="3.2"
+                        text-anchor="middle"
+                        class="ax"
+                    >
+                        {c + 1}
+                    </text>
+                ))}
+                {rows.map((l, r) => (
+                    <text
+                        x="40"
+                        y={68 + 32 * r}
+                        text-anchor="middle"
+                        class="ax"
+                    >
+                        {l}
+                    </text>
+                ))}
+                <rect
+                    x="54"
+                    y="-16"
+                    width="188.8"
+                    height="320"
+                    rx="6"
+                    fill="#2f9e58"
+                    fill-opacity="0.13"
+                    stroke="#2f9e58"
+                    stroke-width="1.4"
+                    stroke-dasharray="0"
+                />
+                <rect
+                    x="246"
+                    y="48"
+                    width="259.2"
+                    height="224"
+                    rx="6"
+                    fill="#3b6fd6"
+                    fill-opacity="0.13"
+                    stroke="#3b6fd6"
+                    stroke-width="1.4"
+                    stroke-dasharray="0"
+                />
+                <rect
+                    x="310"
+                    y="432"
+                    width="192"
+                    height="224"
+                    rx="6"
+                    fill="#b0479a"
+                    fill-opacity="0.13"
+                    stroke="#b0479a"
+                    stroke-width="1.4"
+                    stroke-dasharray="0"
+                />
+                <rect
+                    x="22"
+                    y="400"
+                    width="256"
+                    height="352"
+                    rx="6"
+                    fill="#d9822b"
+                    fill-opacity="0.13"
+                    stroke="#d9822b"
+                    stroke-width="1.4"
+                    stroke-dasharray="0"
+                />
+                <text x="406" y="563.2" text-anchor="middle" class="mod">
+                    Pololu power switch
+                </text>
+                <text x="377.2" y="179.2" text-anchor="middle" class="mod">
+                    XIAO ESP32-S3
+                </text>
+                <text x="134" y="147.2" text-anchor="middle" class="mod">
+                    MPU6050 (GY-521)
+                </text>
+                <text x="140.4" y="518.4" text-anchor="middle" class="mod">
+                    DRV2605L
+                </text>
+                <text x="377.2" y="196.8" text-anchor="middle" class="note">
+                    component side up
+                </text>
+                <text x="134" y="164.8" text-anchor="middle" class="note">
+                    INT pin cut
+                </text>
+                <text x="134" y="30.4" text-anchor="middle" class="note">
+                    overhangs 2 rows
+                </text>
+                <rect
+                    x="490.8"
+                    y="137.6"
+                    width="19.2"
+                    height="57.6"
+                    rx="3"
+                    fill="#3b6fd6"
+                    fill-opacity="0.35"
+                />
+                <text
+                    x="522.8"
+                    y="171.2"
+                    text-anchor="middle"
+                    class="lbl"
+                    transform="rotate(-90 522.8 171.2)"
+                >
+                    USB-C
+                </text>
+                <rect
+                    x="26.8"
+                    y="542.4"
+                    width="22.4"
+                    height="16"
+                    rx="2"
+                    fill="#d9822b"
+                    fill-opacity="0.55"
+                />
+                <text x="38" y="553.4" text-anchor="middle" class="tiny">
+                    M+
+                </text>
+                <rect
+                    x="26.8"
+                    y="587.2"
+                    width="22.4"
+                    height="16"
+                    rx="2"
+                    fill="#d9822b"
+                    fill-opacity="0.55"
+                />
+                <text x="38" y="598.2" text-anchor="middle" class="tiny">
+                    M−
+                </text>
+                <text
+                    x="15.2"
+                    y="659.2"
+                    text-anchor="middle"
+                    class="note"
+                    transform="rotate(-90 15.2 659.2)"
+                >
+                    LRA wires
+                </text>
+                {cols.map((c) =>
+                    rows.map((_, r) => (
+                        <circle
+                            cx={70 + 32 * c}
+                            cy={64 + 32 * r}
+                            r="3.2"
+                            class="hole"
+                        />
+                    )),
+                )}
+                <rect
+                    x="225"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="221" y="67" text-anchor="end" class="pin">
+                    AD0
+                </text>
+                <rect
+                    x="225"
+                    y="91"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="221" y="99" text-anchor="end" class="pin">
+                    XCL
+                </text>
+                <rect
+                    x="225"
+                    y="123"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="221" y="131" text-anchor="end" class="pin">
+                    XDA
+                </text>
+                <rect
+                    x="225"
+                    y="155"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="221" y="163" text-anchor="end" class="pin">
+                    SDA
+                </text>
+                <rect
+                    x="225"
+                    y="187"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="221" y="195" text-anchor="end" class="pin">
+                    SCL
+                </text>
+                <rect
+                    x="225"
+                    y="219"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="221" y="227" text-anchor="end" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="225"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="221" y="259" text-anchor="end" class="pin">
+                    VCC
+                </text>
+                <rect
+                    x="257"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="262" y="55" text-anchor="middle" class="pin">
+                    D6
+                </text>
+                <rect
+                    x="289"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="294" y="55" text-anchor="middle" class="pin">
+                    SCL
+                </text>
+                <rect
+                    x="321"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="326" y="55" text-anchor="middle" class="pin">
+                    SDA
+                </text>
+                <rect
+                    x="353"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="358" y="55" text-anchor="middle" class="pin">
+                    D3
+                </text>
+                <rect
+                    x="385"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="390" y="55" text-anchor="middle" class="pin">
+                    D2
+                </text>
+                <rect
+                    x="417"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="422" y="55" text-anchor="middle" class="pin">
+                    A1
+                </text>
+                <rect
+                    x="449"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="454" y="55" text-anchor="middle" class="pin">
+                    A0
+                </text>
+                <rect
+                    x="257"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="262" y="271" text-anchor="middle" class="pin">
+                    D7
+                </text>
+                <rect
+                    x="289"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="294" y="271" text-anchor="middle" class="pin">
+                    D8
+                </text>
+                <rect
+                    x="321"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="326" y="271" text-anchor="middle" class="pin">
+                    D9
+                </text>
+                <rect
+                    x="353"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="358" y="271" text-anchor="middle" class="pin">
+                    D10
+                </text>
+                <rect
+                    x="385"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="390" y="271" text-anchor="middle" class="pin">
+                    3V3
+                </text>
+                <rect
+                    x="417"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="422" y="271" text-anchor="middle" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="449"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="454" y="271" text-anchor="middle" class="pin">
+                    5V
+                </text>
+                <rect
+                    x="321"
+                    y="443"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="335" y="451" text-anchor="start" class="pin">
+                    VIN
+                </text>
+                <rect
+                    x="321"
+                    y="475"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="335" y="483" text-anchor="start" class="pin">
+                    VIN
+                </text>
+                <rect
+                    x="321"
+                    y="507"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="335" y="515" text-anchor="start" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="321"
+                    y="539"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="335" y="547" text-anchor="start" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="321"
+                    y="571"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="335" y="579" text-anchor="start" class="pin">
+                    ON
+                </text>
+                <rect
+                    x="321"
+                    y="603"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="335" y="611" text-anchor="start" class="pin">
+                    OFF
+                </text>
+                <rect
+                    x="321"
+                    y="635"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="335" y="643" text-anchor="start" class="pin">
+                    CTRL
+                </text>
+                <rect
+                    x="481"
+                    y="443"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="477" y="451" text-anchor="end" class="pin">
+                    VOUT
+                </text>
+                <rect
+                    x="481"
+                    y="475"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="477" y="483" text-anchor="end" class="pin">
+                    VOUT
+                </text>
+                <rect
+                    x="481"
+                    y="507"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="477" y="515" text-anchor="end" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="481"
+                    y="539"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="477" y="547" text-anchor="end" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="481"
+                    y="571"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="477" y="579" text-anchor="end" class="pin">
+                    BTN
+                </text>
+                <rect
+                    x="481"
+                    y="603"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="477" y="611" text-anchor="end" class="pin">
+                    BTN
+                </text>
+                <rect
+                    x="225"
+                    y="507"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="221" y="515" text-anchor="end" class="pin">
+                    INT
+                </text>
+                <rect
+                    x="225"
+                    y="539"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="221" y="547" text-anchor="end" class="pin">
+                    SDA
+                </text>
+                <rect
+                    x="225"
+                    y="571"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="221" y="579" text-anchor="end" class="pin">
+                    SCL
+                </text>
+                <rect
+                    x="225"
+                    y="603"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="221" y="611" text-anchor="end" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="225"
+                    y="635"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="221" y="643" text-anchor="end" class="pin">
+                    VIN
+                </text>
+                <circle
+                    cx="358"
+                    cy="128"
+                    r="5"
+                    fill="none"
+                    stroke="#d64545"
+                    stroke-width="2"
+                />
+                <circle
+                    cx="390"
+                    cy="128"
+                    r="5"
+                    fill="none"
+                    stroke="#555b61"
+                    stroke-width="2"
+                />
+                <rect
+                    x="442"
+                    y="663"
+                    width="56"
+                    height="37.8"
+                    rx="3"
+                    class="hdr"
+                />
+                <rect x="450" y="668" width="8" height="8" fill="#c9a227" />
+                <line
+                    x1="454"
+                    y1="672"
+                    x2="454"
+                    y2="712"
+                    stroke="#c9a227"
+                    stroke-width="3"
+                />
+                <text x="454" y="724" text-anchor="middle" class="pin">
+                    +
+                </text>
+                <rect x="482" y="668" width="8" height="8" fill="#c9a227" />
+                <line
+                    x1="486"
+                    y1="672"
+                    x2="486"
+                    y2="712"
+                    stroke="#c9a227"
+                    stroke-width="3"
+                />
+                <text x="486" y="724" text-anchor="middle" class="pin">
+                    −
+                </text>
+                <text x="438" y="700.8" text-anchor="end" class="lbl">
+                    Battery ↓
+                </text>
+                <circle cx="166" cy="336" r="24.96" class="elec" />
+                <text x="166" y="340" text-anchor="middle" class="tiny">
+                    100µF
+                </text>
+                <text x="175" y="356" class="pin">
+                    +
+                </text>
+                <circle cx="166" cy="320" r="2.6" fill="currentColor" />
+                <circle cx="166" cy="352" r="2.6" fill="currentColor" />
+                <rect
+                    x="191"
+                    y="327"
+                    width="14"
+                    height="18"
+                    rx="6"
+                    class="cer"
+                />
+                <circle cx="198" cy="320" r="2.6" fill="currentColor" />
+                <circle cx="198" cy="352" r="2.6" fill="currentColor" />
+                <text x="208" y="339" text-anchor="start" class="pid">
+                    C2
+                </text>
+                <line
+                    x1="230"
+                    y1="320"
+                    x2="230"
+                    y2="352"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                />
+                <circle cx="230" cy="320" r="7" class="res" />
+                <circle cx="230" cy="352" r="2.6" fill="currentColor" />
+                <text x="240" y="336" class="pid">
+                    R2
+                </text>
+                <line
+                    x1="262"
+                    y1="352"
+                    x2="262"
+                    y2="384"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                />
+                <circle cx="262" cy="352" r="7" class="res" />
+                <circle cx="262" cy="384" r="2.6" fill="currentColor" />
+                <text x="272" y="356" class="pid">
+                    R1
+                </text>
+                <rect
+                    x="255"
+                    y="295"
+                    width="14"
+                    height="18"
+                    rx="6"
+                    class="cer"
+                />
+                <circle cx="262" cy="288" r="2.6" fill="currentColor" />
+                <circle cx="262" cy="320" r="2.6" fill="currentColor" />
+                <text x="272" y="307" text-anchor="start" class="pid">
+                    C3
+                </text>
+                <rect
+                    x="287"
+                    y="327"
+                    width="14"
+                    height="18"
+                    rx="6"
+                    class="cer"
+                />
+                <circle cx="294" cy="320" r="2.6" fill="currentColor" />
+                <circle cx="294" cy="352" r="2.6" fill="currentColor" />
+                <text x="304" y="339" text-anchor="start" class="pid">
+                    C4
+                </text>
+                <path
+                    d="M317,359 L399,359 A41,22.55 0 0 0 317,359 Z"
+                    class="ldo"
+                />
+                <circle cx="326" cy="352" r="2.6" fill="currentColor" />
+                <text x="326" y="371" text-anchor="middle" class="tiny">
+                    GND
+                </text>
+                <circle cx="358" cy="352" r="2.6" fill="currentColor" />
+                <text x="358" y="371" text-anchor="middle" class="tiny">
+                    IN
+                </text>
+                <circle cx="390" cy="352" r="2.6" fill="currentColor" />
+                <text x="390" y="371" text-anchor="middle" class="tiny">
+                    OUT
+                </text>
+                <text x="358" y="340" text-anchor="middle" class="pid">
+                    U1
+                </text>
+                <rect
+                    x="364"
+                    y="313"
+                    width="20"
+                    height="14"
+                    rx="6"
+                    class="cer"
+                />
+                <circle cx="358" cy="320" r="2.6" fill="currentColor" />
+                <circle cx="390" cy="320" r="2.6" fill="currentColor" />
+                <text x="374" y="310" text-anchor="middle" class="pid">
+                    C5
+                </text>
+                <rect
+                    x="428"
+                    y="345"
+                    width="20"
+                    height="14"
+                    rx="6"
+                    class="cer"
+                />
+                <circle cx="422" cy="352" r="2.6" fill="currentColor" />
+                <circle cx="454" cy="352" r="2.6" fill="currentColor" />
+                <text x="438" y="342" text-anchor="middle" class="pid">
+                    C6
+                </text>
+                <rect
+                    x="477"
+                    y="308"
+                    width="37.8"
+                    height="88"
+                    rx="3"
+                    class="hdr"
+                />
+                <rect x="482" y="316" width="8" height="8" fill="#c9a227" />
+                <line
+                    x1="486"
+                    y1="320"
+                    x2="526"
+                    y2="320"
+                    stroke="#c9a227"
+                    stroke-width="3"
+                />
+                <text x="529.2" y="323" class="pin">
+                    ENV
+                </text>
+                <rect x="482" y="348" width="8" height="8" fill="#c9a227" />
+                <line
+                    x1="486"
+                    y1="352"
+                    x2="526"
+                    y2="352"
+                    stroke="#c9a227"
+                    stroke-width="3"
+                />
+                <text x="529.2" y="355" class="pin">
+                    GND
+                </text>
+                <rect x="482" y="380" width="8" height="8" fill="#c9a227" />
+                <line
+                    x1="486"
+                    y1="384"
+                    x2="526"
+                    y2="384"
+                    stroke="#c9a227"
+                    stroke-width="3"
+                />
+                <text x="529.2" y="387" class="pin">
+                    3V0
+                </text>
+                <text x="524.4" y="304" text-anchor="middle" class="lbl">
+                    MyoWare →
+                </text>
+                <text x="166" y="293" text-anchor="middle" class="pid">
+                    C1
+                </text>
+                <rect
+                    x="75.2"
+                    y="605.4"
+                    width="28"
+                    height="18"
+                    rx="3"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-dasharray="2 2"
+                    opacity="0.6"
+                />
+                <text x="89.2" y="617.4" text-anchor="middle" class="tiny">
+                    support
+                </text>
+                <rect
+                    x="78.4"
+                    y="224.6"
+                    width="28"
+                    height="18"
+                    rx="3"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-dasharray="2 2"
+                    opacity="0.6"
+                />
+                <text x="92.4" y="236.6" text-anchor="middle" class="tiny">
+                    support
+                </text>
+            </svg>
+        </div>
+        <div class="view">
+            <p class="view-label">Back (solder side, mirrored)</p>
+            <svg
+                viewBox="52 -22 564 786"
+                role="img"
+                aria-label="Back (solder) side of the perfboard layout, mirrored"
+            >
+                <defs>
+                    <pattern
+                        id="hatchb"
+                        width="6"
+                        height="6"
+                        patternUnits="userSpaceOnUse"
+                    >
+                        <path
+                            d="M0,6 L6,0"
+                            stroke="currentColor"
+                            stroke-width="0.6"
+                            opacity="0.25"
+                        />
+                    </pattern>
+                </defs>
+                <rect
+                    x="104"
+                    y="9.6"
+                    width="448"
+                    height="38.4"
+                    fill="url(#hatchb)"
+                    stroke="currentColor"
+                    stroke-opacity="0.3"
+                    stroke-dasharray="3 3"
+                />
+                <rect
+                    x="104"
+                    y="688"
+                    width="448"
+                    height="70.4"
+                    fill="url(#hatchb)"
+                    stroke="currentColor"
+                    stroke-opacity="0.3"
+                    stroke-dasharray="3 3"
+                />
+                <rect
+                    x="104"
+                    y="48"
+                    width="448"
+                    height="640"
+                    rx="4"
+                    class="board"
+                />
+                <text x="328" y="746.4" text-anchor="middle" class="note">
+                    edge pads (short edge)
+                </text>
+                {cols.map((c) => (
+                    <text
+                        x={536 - 32 * c}
+                        y="3.2"
+                        text-anchor="middle"
+                        class="ax"
+                    >
+                        {c + 1}
+                    </text>
+                ))}
+                {backRows.map((l, r) => (
+                    <text
+                        x="90"
+                        y={68 + 32 * r}
+                        text-anchor="middle"
+                        class="ax"
+                    >
+                        {l}
+                    </text>
+                ))}
+                <rect
+                    x="363.2"
+                    y="-16"
+                    width="188.8"
+                    height="320"
+                    rx="6"
+                    fill="#2f9e58"
+                    fill-opacity="0.07"
+                    stroke="#2f9e58"
+                    stroke-width="1.4"
+                    stroke-dasharray="5 4"
+                />
+                <rect
+                    x="100.8"
+                    y="48"
+                    width="259.2"
+                    height="224"
+                    rx="6"
+                    fill="#3b6fd6"
+                    fill-opacity="0.07"
+                    stroke="#3b6fd6"
+                    stroke-width="1.4"
+                    stroke-dasharray="5 4"
+                />
+                <rect
+                    x="104"
+                    y="432"
+                    width="192"
+                    height="224"
+                    rx="6"
+                    fill="#b0479a"
+                    fill-opacity="0.07"
+                    stroke="#b0479a"
+                    stroke-width="1.4"
+                    stroke-dasharray="5 4"
+                />
+                <rect
+                    x="328"
+                    y="400"
+                    width="256"
+                    height="352"
+                    rx="6"
+                    fill="#d9822b"
+                    fill-opacity="0.07"
+                    stroke="#d9822b"
+                    stroke-width="1.4"
+                    stroke-dasharray="5 4"
+                />
+                <text x="200" y="563.2" text-anchor="middle" class="mod">
+                    Pololu power switch
+                </text>
+                <text x="228.8" y="179.2" text-anchor="middle" class="mod">
+                    XIAO ESP32-S3
+                </text>
+                <text x="472" y="147.2" text-anchor="middle" class="mod">
+                    MPU6050 (GY-521)
+                </text>
+                <text x="465.6" y="518.4" text-anchor="middle" class="mod">
+                    DRV2605L
+                </text>
+                <rect
+                    x="96"
+                    y="137.6"
+                    width="19.2"
+                    height="57.6"
+                    rx="3"
+                    fill="#3b6fd6"
+                    fill-opacity="0.35"
+                />
+                <text
+                    x="81.6"
+                    y="171.2"
+                    text-anchor="middle"
+                    class="lbl"
+                    transform="rotate(-90 81.6 171.2)"
+                >
+                    USB-C
+                </text>
+                <rect
+                    x="556.8"
+                    y="542.4"
+                    width="22.4"
+                    height="16"
+                    rx="2"
+                    fill="#d9822b"
+                    fill-opacity="0.55"
+                />
+                <text x="568" y="553.4" text-anchor="middle" class="tiny">
+                    M+
+                </text>
+                <rect
+                    x="556.8"
+                    y="587.2"
+                    width="22.4"
+                    height="16"
+                    rx="2"
+                    fill="#d9822b"
+                    fill-opacity="0.55"
+                />
+                <text x="568" y="598.2" text-anchor="middle" class="tiny">
+                    M−
+                </text>
+                <text
+                    x="590.8"
+                    y="659.2"
+                    text-anchor="middle"
+                    class="note"
+                    transform="rotate(-90 590.8 659.2)"
+                >
+                    LRA wires
+                </text>
+                {cols.map((c) =>
+                    rows.map((_, r) => (
+                        <circle
+                            cx={536 - 32 * c}
+                            cy={64 + 32 * r}
+                            r="3.2"
+                            class="hole"
+                        />
+                    )),
+                )}
+                <rect
+                    x="371"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="385" y="67" text-anchor="start" class="pin">
+                    AD0
+                </text>
+                <rect
+                    x="371"
+                    y="91"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="385" y="99" text-anchor="start" class="pin">
+                    XCL
+                </text>
+                <rect
+                    x="371"
+                    y="123"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="385" y="131" text-anchor="start" class="pin">
+                    XDA
+                </text>
+                <rect
+                    x="371"
+                    y="155"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="385" y="163" text-anchor="start" class="pin">
+                    SDA
+                </text>
+                <rect
+                    x="371"
+                    y="187"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="385" y="195" text-anchor="start" class="pin">
+                    SCL
+                </text>
+                <rect
+                    x="371"
+                    y="219"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="385" y="227" text-anchor="start" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="371"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#2f9e58"
+                />
+                <text x="385" y="259" text-anchor="start" class="pin">
+                    VCC
+                </text>
+                <rect
+                    x="339"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="344" y="55" text-anchor="middle" class="pin">
+                    D6
+                </text>
+                <rect
+                    x="307"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="312" y="55" text-anchor="middle" class="pin">
+                    SCL
+                </text>
+                <rect
+                    x="275"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="280" y="55" text-anchor="middle" class="pin">
+                    SDA
+                </text>
+                <rect
+                    x="243"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="248" y="55" text-anchor="middle" class="pin">
+                    D3
+                </text>
+                <rect
+                    x="211"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="216" y="55" text-anchor="middle" class="pin">
+                    D2
+                </text>
+                <rect
+                    x="179"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="184" y="55" text-anchor="middle" class="pin">
+                    A1
+                </text>
+                <rect
+                    x="147"
+                    y="59"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="152" y="55" text-anchor="middle" class="pin">
+                    A0
+                </text>
+                <rect
+                    x="339"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="344" y="271" text-anchor="middle" class="pin">
+                    D7
+                </text>
+                <rect
+                    x="307"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="312" y="271" text-anchor="middle" class="pin">
+                    D8
+                </text>
+                <rect
+                    x="275"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="280" y="271" text-anchor="middle" class="pin">
+                    D9
+                </text>
+                <rect
+                    x="243"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="248" y="271" text-anchor="middle" class="pin">
+                    D10
+                </text>
+                <rect
+                    x="211"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="216" y="271" text-anchor="middle" class="pin">
+                    3V3
+                </text>
+                <rect
+                    x="179"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="184" y="271" text-anchor="middle" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="147"
+                    y="251"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#3b6fd6"
+                />
+                <text x="152" y="271" text-anchor="middle" class="pin">
+                    5V
+                </text>
+                <rect
+                    x="275"
+                    y="443"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="271" y="451" text-anchor="end" class="pin">
+                    VIN
+                </text>
+                <rect
+                    x="275"
+                    y="475"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="271" y="483" text-anchor="end" class="pin">
+                    VIN
+                </text>
+                <rect
+                    x="275"
+                    y="507"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="271" y="515" text-anchor="end" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="275"
+                    y="539"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="271" y="547" text-anchor="end" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="275"
+                    y="571"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="271" y="579" text-anchor="end" class="pin">
+                    ON
+                </text>
+                <rect
+                    x="275"
+                    y="603"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="271" y="611" text-anchor="end" class="pin">
+                    OFF
+                </text>
+                <rect
+                    x="275"
+                    y="635"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="271" y="643" text-anchor="end" class="pin">
+                    CTRL
+                </text>
+                <rect
+                    x="115"
+                    y="443"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="129" y="451" text-anchor="start" class="pin">
+                    VOUT
+                </text>
+                <rect
+                    x="115"
+                    y="475"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="129" y="483" text-anchor="start" class="pin">
+                    VOUT
+                </text>
+                <rect
+                    x="115"
+                    y="507"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="129" y="515" text-anchor="start" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="115"
+                    y="539"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="129" y="547" text-anchor="start" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="115"
+                    y="571"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="129" y="579" text-anchor="start" class="pin">
+                    BTN
+                </text>
+                <rect
+                    x="115"
+                    y="603"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#b0479a"
+                />
+                <text x="129" y="611" text-anchor="start" class="pin">
+                    BTN
+                </text>
+                <rect
+                    x="371"
+                    y="507"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="385" y="515" text-anchor="start" class="pin">
+                    INT
+                </text>
+                <rect
+                    x="371"
+                    y="539"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="385" y="547" text-anchor="start" class="pin">
+                    SDA
+                </text>
+                <rect
+                    x="371"
+                    y="571"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="385" y="579" text-anchor="start" class="pin">
+                    SCL
+                </text>
+                <rect
+                    x="371"
+                    y="603"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="385" y="611" text-anchor="start" class="pin">
+                    GND
+                </text>
+                <rect
+                    x="371"
+                    y="635"
+                    width="10"
+                    height="10"
+                    rx="1.5"
+                    fill="#d9822b"
+                />
+                <text x="385" y="643" text-anchor="start" class="pin">
+                    VIN
+                </text>
+                <circle
+                    cx="248"
+                    cy="128"
+                    r="5"
+                    fill="none"
+                    stroke="#d64545"
+                    stroke-width="2"
+                />
+                <circle
+                    cx="216"
+                    cy="128"
+                    r="5"
+                    fill="none"
+                    stroke="#555b61"
+                    stroke-width="2"
+                />
+                <rect
+                    x="148"
+                    y="668"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="116"
+                    y="668"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="436"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="436"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="404"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="404"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="372"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="372"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="340"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="340"
+                    y="380"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="340"
+                    y="284"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="340"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="308"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="308"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="276"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="244"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="212"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="244"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="212"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="180"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="148"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="116"
+                    y="316"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="116"
+                    y="348"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <rect
+                    x="116"
+                    y="380"
+                    width="8"
+                    height="8"
+                    rx="1"
+                    fill="#c9a227"
+                    fill-opacity="0.85"
+                />
+                <line
+                    x1="504"
+                    y1="288"
+                    x2="152"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="504"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="472"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="440"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="408"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="376"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="344"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="312"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="280"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="248"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="216"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="184"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="152"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="184"
+                    y1="256"
+                    x2="184"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="184"
+                    cy="256"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="184"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="440"
+                    y1="320"
+                    x2="440"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="440"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="440"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="408"
+                    y1="320"
+                    x2="408"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="408"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="408"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="376"
+                    y1="320"
+                    x2="376"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="376"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="376"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="312"
+                    y1="320"
+                    x2="312"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="312"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="312"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="280"
+                    y1="352"
+                    x2="280"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="280"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="280"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="280"
+                    cy="352"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="280"
+                    y1="320"
+                    x2="248"
+                    y2="320"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="280"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="248"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="152"
+                    y1="352"
+                    x2="152"
+                    y2="288"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="152"
+                    cy="288"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="152"
+                    cy="320"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="152"
+                    cy="352"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="152"
+                    y1="352"
+                    x2="120"
+                    y2="352"
+                    stroke="#555b61"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="152"
+                    cy="352"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="120"
+                    cy="352"
+                    r="3.4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="536"
+                    y1="416"
+                    x2="216"
+                    y2="416"
+                    stroke="#d64545"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="536"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="504"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="472"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="440"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="408"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="376"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="344"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="312"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="280"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="248"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="216"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="440"
+                    y1="352"
+                    x2="440"
+                    y2="416"
+                    stroke="#d64545"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="440"
+                    cy="352"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="440"
+                    cy="384"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="440"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="408"
+                    y1="352"
+                    x2="408"
+                    y2="416"
+                    stroke="#d64545"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="408"
+                    cy="352"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="408"
+                    cy="384"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="408"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="344"
+                    y1="384"
+                    x2="344"
+                    y2="416"
+                    stroke="#d64545"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="344"
+                    cy="384"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="344"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="312"
+                    y1="352"
+                    x2="312"
+                    y2="416"
+                    stroke="#d64545"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="312"
+                    cy="352"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="312"
+                    cy="384"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="312"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="248"
+                    y1="352"
+                    x2="248"
+                    y2="416"
+                    stroke="#d64545"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="248"
+                    cy="352"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="248"
+                    cy="384"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="248"
+                    cy="416"
+                    r="3.4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="376"
+                    y1="352"
+                    x2="344"
+                    y2="352"
+                    stroke="#6f9a1f"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="376"
+                    cy="352"
+                    r="3.4"
+                    fill="#6f9a1f"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="344"
+                    cy="352"
+                    r="3.4"
+                    fill="#6f9a1f"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="344"
+                    y1="320"
+                    x2="344"
+                    y2="352"
+                    stroke="#6f9a1f"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="344"
+                    cy="320"
+                    r="3.4"
+                    fill="#6f9a1f"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="344"
+                    cy="352"
+                    r="3.4"
+                    fill="#6f9a1f"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="216"
+                    y1="320"
+                    x2="216"
+                    y2="352"
+                    stroke="#8a5cd6"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="216"
+                    cy="320"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="216"
+                    cy="352"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="216"
+                    y1="352"
+                    x2="184"
+                    y2="352"
+                    stroke="#8a5cd6"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="216"
+                    cy="352"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="184"
+                    cy="352"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="184"
+                    y1="352"
+                    x2="184"
+                    y2="384"
+                    stroke="#8a5cd6"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="184"
+                    cy="352"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="184"
+                    cy="384"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <line
+                    x1="184"
+                    y1="384"
+                    x2="120"
+                    y2="384"
+                    stroke="#8a5cd6"
+                    stroke-width="4.2"
+                    stroke-linecap="round"
+                    opacity="0.9"
+                />
+                <circle
+                    cx="184"
+                    cy="384"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="152"
+                    cy="384"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <circle
+                    cx="120"
+                    cy="384"
+                    r="3.4"
+                    fill="#8a5cd6"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                />
+                <path
+                    d="M152,672 L168,659.2 L260.8,467.2 L280,448"
+                    class="halo"
+                />
+                <path
+                    d="M152,672 L168,659.2 L260.8,467.2 L280,448"
+                    fill="none"
+                    stroke="#9b1c1c"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="152"
+                    cy="672"
+                    r="4"
+                    fill="#9b1c1c"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="280"
+                    cy="448"
+                    r="4"
+                    fill="#9b1c1c"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M120,672 L107.2,659.2 L107.2,556.8 L120,544"
+                    class="halo"
+                />
+                <path
+                    d="M120,672 L107.2,659.2 L107.2,556.8 L120,544"
+                    fill="none"
+                    stroke="#555b61"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="120"
+                    cy="672"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="120"
+                    cy="544"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M280,512 L296,499.2 L296,307.2 L260.8,300.8 L248,288"
+                    class="halo"
+                />
+                <path
+                    d="M280,512 L296,499.2 L296,307.2 L260.8,300.8 L248,288"
+                    fill="none"
+                    stroke="#555b61"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="280"
+                    cy="512"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="248"
+                    cy="288"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M280,608 L302.4,595.2 L302.4,80 L260.8,80 L248,64"
+                    class="halo"
+                />
+                <path
+                    d="M280,608 L302.4,595.2 L302.4,80 L260.8,80 L248,64"
+                    fill="none"
+                    stroke="#b0479a"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="280"
+                    cy="608"
+                    r="4"
+                    fill="#b0479a"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="248"
+                    cy="64"
+                    r="4"
+                    fill="#b0479a"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M120,448 L136,433.6 L200,433.6 L216,416"
+                    class="halo"
+                />
+                <path
+                    d="M120,448 L136,433.6 L200,433.6 L216,416"
+                    fill="none"
+                    stroke="#d64545"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="120"
+                    cy="448"
+                    r="4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="216"
+                    cy="416"
+                    r="4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M248,128 L232,144 L232,396.8 L267.2,403.2 L280,416"
+                    class="halo"
+                />
+                <path
+                    d="M248,128 L232,144 L232,396.8 L267.2,403.2 L280,416"
+                    fill="none"
+                    stroke="#d64545"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="248"
+                    cy="128"
+                    r="4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="280"
+                    cy="416"
+                    r="4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M216,128 L200,147.2 L200,275.2 L216,288"
+                    class="halo"
+                />
+                <path
+                    d="M216,128 L200,147.2 L200,275.2 L216,288"
+                    fill="none"
+                    stroke="#555b61"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="216"
+                    cy="128"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="216"
+                    cy="288"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path d="M216,256 L228.8,272 L360,272 L376,256" class="halo" />
+                <path
+                    d="M216,256 L228.8,272 L360,272 L376,256"
+                    fill="none"
+                    stroke="#e07b00"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="216"
+                    cy="256"
+                    r="4"
+                    fill="#e07b00"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="376"
+                    cy="256"
+                    r="4"
+                    fill="#e07b00"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M376,224 L388.8,240 L388.8,275.2 L376,288"
+                    class="halo"
+                />
+                <path
+                    d="M376,224 L388.8,240 L388.8,275.2 L376,288"
+                    fill="none"
+                    stroke="#555b61"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="376"
+                    cy="224"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="376"
+                    cy="288"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M280,64 L289.6,83.2 L356.8,147.2 L376,160"
+                    class="halo"
+                />
+                <path
+                    d="M280,64 L289.6,83.2 L356.8,147.2 L376,160"
+                    fill="none"
+                    stroke="#3b6fd6"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="280"
+                    cy="64"
+                    r="4"
+                    fill="#3b6fd6"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="376"
+                    cy="160"
+                    r="4"
+                    fill="#3b6fd6"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M312,64 L324.8,86.4 L356.8,179.2 L376,192"
+                    class="halo"
+                />
+                <path
+                    d="M312,64 L324.8,86.4 L356.8,179.2 L376,192"
+                    fill="none"
+                    stroke="#139aa8"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="312"
+                    cy="64"
+                    r="4"
+                    fill="#139aa8"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="376"
+                    cy="192"
+                    r="4"
+                    fill="#139aa8"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M376,544 L350.4,531.2 L350.4,172.8 L376,160"
+                    class="halo"
+                />
+                <path
+                    d="M376,544 L350.4,531.2 L350.4,172.8 L376,160"
+                    fill="none"
+                    stroke="#3b6fd6"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="376"
+                    cy="544"
+                    r="4"
+                    fill="#3b6fd6"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="376"
+                    cy="160"
+                    r="4"
+                    fill="#3b6fd6"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M376,576 L339.2,563.2 L339.2,204.8 L376,192"
+                    class="halo"
+                />
+                <path
+                    d="M376,576 L339.2,563.2 L339.2,204.8 L376,192"
+                    fill="none"
+                    stroke="#139aa8"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="376"
+                    cy="576"
+                    r="4"
+                    fill="#139aa8"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="376"
+                    cy="192"
+                    r="4"
+                    fill="#139aa8"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M376,640 L356.8,624 L356.8,432 L344,416"
+                    class="halo"
+                />
+                <path
+                    d="M376,640 L356.8,624 L356.8,432 L344,416"
+                    fill="none"
+                    stroke="#d64545"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="376"
+                    cy="640"
+                    r="4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="344"
+                    cy="416"
+                    r="4"
+                    fill="#d64545"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M376,608 L395.2,592 L395.2,300.8 L459.2,300.8 L472,288"
+                    class="halo"
+                />
+                <path
+                    d="M376,608 L395.2,592 L395.2,300.8 L459.2,300.8 L472,288"
+                    fill="none"
+                    stroke="#555b61"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="376"
+                    cy="608"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="472"
+                    cy="288"
+                    r="4"
+                    fill="#555b61"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M376,352 L360,339.2 L264,332.8 L264,105.6 L196.8,105.6 L184,64"
+                    class="halo"
+                />
+                <path
+                    d="M376,352 L360,339.2 L264,332.8 L264,105.6 L196.8,105.6 L184,64"
+                    fill="none"
+                    stroke="#6f9a1f"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="376"
+                    cy="352"
+                    r="4"
+                    fill="#6f9a1f"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="184"
+                    cy="64"
+                    r="4"
+                    fill="#6f9a1f"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <path
+                    d="M120,320 L107.2,307.2 L107.2,80 L132.8,76.8 L152,64"
+                    class="halo"
+                />
+                <path
+                    d="M120,320 L107.2,307.2 L107.2,80 L132.8,76.8 L152,64"
+                    fill="none"
+                    stroke="#2f9e58"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                />
+                <circle
+                    cx="120"
+                    cy="320"
+                    r="4"
+                    fill="#2f9e58"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <circle
+                    cx="152"
+                    cy="64"
+                    r="4"
+                    fill="#2f9e58"
+                    stroke="#fff"
+                    stroke-width="1"
+                />
+                <rect
+                    x="202.4"
+                    y="556.2"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#9b1c1c"
+                />
+                <text x="214.4" y="566.4" text-anchor="middle" class="wl">
+                    W1
+                </text>
+                <rect
+                    x="95.2"
+                    y="607.4"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#555b61"
+                />
+                <text x="107.2" y="617.6" text-anchor="middle" class="wl">
+                    W17
+                </text>
+                <rect
+                    x="282.4"
+                    y="466.6"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#555b61"
+                />
+                <text x="294.4" y="476.8" text-anchor="middle" class="wl">
+                    W2
+                </text>
+                <rect
+                    x="290.4"
+                    y="354.6"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#b0479a"
+                />
+                <text x="302.4" y="364.8" text-anchor="middle" class="wl">
+                    W3
+                </text>
+                <rect
+                    x="156"
+                    y="426.6"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#d64545"
+                />
+                <text x="168" y="436.8" text-anchor="middle" class="wl">
+                    W4
+                </text>
+                <rect
+                    x="220"
+                    y="341.8"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#d64545"
+                />
+                <text x="232" y="352" text-anchor="middle" class="wl">
+                    W5
+                </text>
+                <rect
+                    x="188"
+                    y="204.2"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#555b61"
+                />
+                <text x="200" y="214.4" text-anchor="middle" class="wl">
+                    W6
+                </text>
+                <rect
+                    x="236"
+                    y="265"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#e07b00"
+                />
+                <text x="248" y="275.2" text-anchor="middle" class="wl">
+                    W7
+                </text>
+                <rect
+                    x="389.6"
+                    y="245.8"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#555b61"
+                />
+                <text x="401.6" y="256" text-anchor="middle" class="wl">
+                    W8
+                </text>
+                <rect
+                    x="296.8"
+                    y="90.6"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#3b6fd6"
+                />
+                <text x="308.8" y="100.8" text-anchor="middle" class="wl">
+                    W9
+                </text>
+                <rect
+                    x="336.8"
+                    y="151.4"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#139aa8"
+                />
+                <text x="348.8" y="161.6" text-anchor="middle" class="wl">
+                    W10
+                </text>
+                <rect
+                    x="338.4"
+                    y="364.2"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#3b6fd6"
+                />
+                <text x="350.4" y="374.4" text-anchor="middle" class="wl">
+                    W11
+                </text>
+                <rect
+                    x="327.2"
+                    y="485.8"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#139aa8"
+                />
+                <text x="339.2" y="496" text-anchor="middle" class="wl">
+                    W12
+                </text>
+                <rect
+                    x="344.8"
+                    y="588.2"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#d64545"
+                />
+                <text x="356.8" y="598.4" text-anchor="middle" class="wl">
+                    W13
+                </text>
+                <rect
+                    x="383.2"
+                    y="473"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#555b61"
+                />
+                <text x="395.2" y="483.2" text-anchor="middle" class="wl">
+                    W14
+                </text>
+                <rect
+                    x="252"
+                    y="197.8"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#6f9a1f"
+                />
+                <text x="264" y="208" text-anchor="middle" class="wl">
+                    W15
+                </text>
+                <rect
+                    x="95.2"
+                    y="191.4"
+                    width="24"
+                    height="13"
+                    rx="6"
+                    fill="#2f9e58"
+                />
+                <text x="107.2" y="201.6" text-anchor="middle" class="wl">
+                    W16
+                </text>
+                <rect
+                    x="127"
+                    y="357"
+                    width="9"
+                    height="22"
+                    rx="4"
+                    class="cer"
+                />
+                <text x="140" y="371" class="tiny">
+                    C7 (opt.)
+                </text>
+                <text x="328" y="27.2" text-anchor="middle" class="note">
+                    Viewed from the back: board flipped left-to-right, so the
+                    USB end is now on the left
+                </text>
+                <text x="328" y="40" text-anchor="middle" class="note">
+                    Row letters as printed on the back of your board: front A =
+                    back T
+                </text>
+            </svg>
+        </div>
+    </div>
+    <ul class="legend">
+        {legend.map(([color, label]) => (
+            <li>
+                <span class="chip" style={`background: ${color}`} />
+                {label}
+            </li>
+        ))}
+    </ul>
+    <figcaption>
+        Perfboard wiring layout. Parts go on the front; bare-wire rails and
+        insulated wires (W1–W17) go on the back.
+    </figcaption>
+</figure>
+
+<style>
+    figure {
+        margin: 1.5rem 0;
+        --board: #eef3e6;
+    }
+    @media (prefers-color-scheme: dark) {
+        figure {
+            --board: #22281f;
+        }
+    }
+    .views {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    @media (max-width: 40rem) {
+        .views {
+            grid-template-columns: 1fr;
+        }
+    }
+    .view-label {
+        margin: 0 0 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+    svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    text {
+        fill: currentColor;
+    }
+    .board {
+        fill: var(--board);
+        stroke: currentColor;
+        stroke-opacity: 0.45;
+    }
+    .hole {
+        fill: var(--bg);
+        stroke: currentColor;
+        stroke-opacity: 0.35;
+        stroke-width: 1;
+    }
+    .ax {
+        font-size: 11px;
+        fill: var(--muted) !important;
+    }
+    .pin {
+        font-size: 8.5px;
+        font-weight: 600;
+    }
+    .mod {
+        font-size: 12.5px;
+        font-weight: 700;
+    }
+    .lbl {
+        font-size: 10.5px;
+        font-weight: 600;
+    }
+    .tiny {
+        font-size: 8.5px;
+    }
+    .note {
+        font-size: 10.5px;
+        font-style: italic;
+        fill: var(--muted) !important;
+    }
+    .pid {
+        font-size: 9.5px;
+        font-weight: 700;
+    }
+    .wl {
+        font-size: 8.5px;
+        font-weight: 700;
+        fill: #fff !important;
+    }
+    .hdr {
+        fill: #2b2b2b;
+        fill-opacity: 0.85;
+        stroke: none;
+    }
+    .elec {
+        fill: #2f5fb3;
+        fill-opacity: 0.25;
+        stroke: #2f5fb3;
+        stroke-width: 1.4;
+    }
+    .cer {
+        fill: #d9a441;
+        fill-opacity: 0.45;
+        stroke: #b9852a;
+        stroke-width: 1;
+    }
+    .res {
+        fill: #c9b28a;
+        stroke: #8a744f;
+        stroke-width: 1;
+    }
+    .ldo {
+        fill: #333;
+        fill-opacity: 0.8;
+    }
+    .halo {
+        fill: none;
+        stroke: var(--bg);
+        stroke-width: 6.5;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+    }
+    .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 1rem;
+        margin: 0.75rem 0 0;
+        padding: 0;
+        list-style: none;
+        font-size: 0.875rem;
+    }
+    .chip {
+        display: inline-block;
+        width: 11px;
+        height: 11px;
+        border-radius: 3px;
+        margin-right: 6px;
+        vertical-align: -1px;
+    }
+    figcaption {
+        margin-top: 0.75rem;
+        color: var(--muted);
+        font-size: 0.875rem;
+    }
+</style>
