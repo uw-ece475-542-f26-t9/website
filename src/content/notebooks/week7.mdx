@@ -1,0 +1,78 @@
+---
+title: Week 6 - 11/06/2026-11/13/2026
+authors: [Milo Ridenour, Bernardo Lin, Adi Bhagwani, James Lee]
+---
+
+import { Image } from "astro:assets";
+import DRV from "./week6/DRV.png";
+
+
+## Weekly Progress
+
+- Completed soldering the prototype hardware and began testing the modules individually.
+- Prepared and delivered the project status presentation, including an edited milestone demo video.
+- Implemented the signal processing and ML pipeline, including signal cleaning, angle-based segmentation, feature extraction, Kalman filtering, and model-based warnings.
+- Developed data collection and video-labeling tools. The pipeline passed 112 software tests, while model training on real participant data remains pending.
+
+## Outcomes and Decisions
+
+- Use seconds until the first unsuccessful repetition, identified from video, as the prediction target.
+- Maintain a metronome pace of one second up and one second down during data collection and the demo. Target warning times are four and two seconds before the stop point.
+- Use simulated recordings to test the pipeline and real participant recordings to train the models.
+- Compare EMG features within matching forearm angle intervals, separating lifting and lowering.
+- Evaluate predictions using leave-one-person-out validation, tracking missed warnings, false alarms, warning lead time, and prediction error.
+
+## Next steps
+
+- Complete individual module tests and verify the full system on the soldered prototype.
+- Run a pilot recording to check sensor quality, video synchronization, and the labeling workflow.
+- Collect EMG, IMU, and synchronized video data at the IMA using the agreed protocol.
+- Label the recordings, train and compare the candidate models, and evaluate warning performance.
+- Test the updated capture firmware on the XIAO and connect the selected warning output to haptic feedback.
+
+
+
+## Team Member Contributions
+
+
+### Milo
+
+
+
+### Bernardo
+1. Assisted on preparing the project slides and also presented the projects slides covering end goals and next
+2. Make readjustments on the 3D case design
+3. Assisted on drafting the week 7 weekly notebook
+
+
+### Adi
+1. Built the project's full signal processing and ML pipeline (pipeline/, branch signal-pipeline), with 112 automated tests.
+2. Switched the labels from rep counts to time: the model predicts seconds until form breakdown, and warns at 4 s and 2 s (2 and 1 reps at the metronome pace).
+3. Implemented real-time EMG cleaning (linear-phase band-pass, removal of hum and interference, noise-floor subtraction), RepSense's forearm angle (run in real time) and soft angle bins, so the same arm angle is always compared with itself.
+4. Computed 20 candidate features, smoothed with Kalman filters fitted by maximum likelihood.
+5. Added leave-one-person-out scoring against three clock baselines, a nested random-subset feature search, and warning thresholds tuned by the team's false-alarm rule.
+6. Built a lab kit: a guided session recorder, video label alignment, on-the-spot recording checks, and one-command reports.
+7. Added an ADC rate-switch command to the firmware for the aliasing check, and verified streaming, rate switching and lift detection on the board.
+
+### James
+
+1. Tested the haptic feedback using the integrated ESP32-S3 firmware and adjusted the interval between vibration pulses. 
+2. Prepared and presented the project status slides, covering the hardware architecture, current progress, integration challenges, and next steps.
+3. Edited the milestone demo video for the project status presentation.
+4. Added a Presentations section to the project website and linked the Google Slides so the latest version could be accessed from the site.
+5. Drafted the Week 7 notebook, summarizing the team's progress, outcomes, and individual contributions.
+
+## Budget
+
+No new parts were ordered this week.
+
+| Item             | Amount (USD) |
+| ---------------- | -----------: |
+| Total spent      |      $184.15 |
+| Budget remaining |       $15.85 |
+
+## Weekly Progress pictures
+
+
+
+<BreadboardLayout />
